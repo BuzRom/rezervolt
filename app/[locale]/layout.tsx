@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { routing, type Locale } from "@/i18n/routing";
-import { site } from "@/lib/site";
+import { site, siteUrl } from "@/lib/site";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import "../globals.css";
@@ -35,7 +35,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "Meta" });
 
   return {
-    metadataBase: new URL(`https://${site.domain}`),
+    metadataBase: new URL(siteUrl),
     title: { default: t("title"), template: `%s — ${site.name}` },
     description: t("description"),
     applicationName: site.name,
@@ -43,12 +43,14 @@ export async function generateMetadata({
       title: t("title"),
       description: t("description"),
       siteName: site.name,
+      url: `/${locale}`,
       locale: locale === "uk" ? "uk_UA" : "en_US",
       type: "website",
     },
     twitter: { card: "summary_large_image", title: t("title"), description: t("description") },
     alternates: {
-      languages: { uk: "/uk", en: "/en" },
+      canonical: `/${locale}`,
+      languages: { uk: "/uk", en: "/en", "x-default": `/${routing.defaultLocale}` },
     },
   };
 }

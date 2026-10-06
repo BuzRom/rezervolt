@@ -1,6 +1,6 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
-import { hiddenSections, site } from "@/lib/site";
+import { hiddenSections, site, siteUrl } from "@/lib/site";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { ScrollProgress } from "@/components/layout/scroll-progress";
@@ -35,7 +35,7 @@ export default async function Home({
     "@type": "LocalBusiness",
     name: site.name,
     description: t("description"),
-    url: `https://${site.domain}`,
+    url: siteUrl,
     email: site.email,
     telephone: site.phone,
     areaServed: "UA",

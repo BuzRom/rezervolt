@@ -377,6 +377,10 @@
     "uk": "UA",
     "en": "EN"
   },
+  "NotFound": {
+    "title": "Page not found",
+    "back": "Back to home"
+  },
   "Common": {
     "backToTop": "Back to top",
     "loading3d": "Loading 3D scene…"
