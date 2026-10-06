@@ -1,0 +1,384 @@
+{
+  "Meta": {
+    "title": "REZERVOLT — Turnkey Solar Power Systems",
+    "description": "Design, installation and maintenance of solar power systems of any complexity — from residential rooftops to industrial plants. Full turnkey cycle."
+  },
+  "Nav": {
+    "services": "Services",
+    "process": "Process",
+    "projects": "Projects",
+    "calculator": "Calculator",
+    "faq": "FAQ",
+    "cta": "Free consultation"
+  },
+  "Hero": {
+    "badge": "Full cycle • 25-year warranty",
+    "titleLead": "Solar energy",
+    "titleHighlight": "turnkey",
+    "titleTail": "for home and business",
+    "subtitle": "We design, install and maintain solar power systems of any complexity. From the first estimate to launch and monitoring — every stage is handled by one team.",
+    "ctaPrimary": "Get a consultation",
+    "ctaSecondary": "How it works",
+    "scrollHint": "Scroll to explore",
+    "trust": {
+      "warranty": "years warranty",
+      "turnkey": "turnkey",
+      "support": "24/7 service"
+    }
+  },
+  "Stats": {
+    "items": [
+      { "value": 12, "suffix": "+", "label": "years on the market" },
+      { "value": 850, "suffix": "+", "label": "completed projects" },
+      { "value": 24, "suffix": " MW", "label": "installed capacity" },
+      { "value": 25, "suffix": " yr", "label": "panel warranty" }
+    ]
+  },
+  "Services": {
+    "eyebrow": "What we do",
+    "title": "Every kind of work — from the simplest to the most complex",
+    "subtitle": "One contractor for the whole cycle: design, equipment supply, installation, grid connection and service.",
+    "items": [
+      {
+        "tag": "Home",
+        "title": "Rooftop systems for private homes",
+        "desc": "Grid-tied and hybrid systems to cut bills and stay independent during outages."
+      },
+      {
+        "tag": "Business",
+        "title": "Commercial solar plants",
+        "desc": "Systems for offices, retail and production with predictable payback and monitoring."
+      },
+      {
+        "tag": "Industrial",
+        "title": "Industrial power plants",
+        "desc": "High-capacity ground-mount and rooftop plants, engineered for complex sites."
+      },
+      {
+        "tag": "Storage",
+        "title": "Energy storage systems",
+        "desc": "Lithium batteries and backup power so the lights stay on — even at peak outages."
+      },
+      {
+        "tag": "Off-grid",
+        "title": "Autonomous (off-grid) solutions",
+        "desc": "Full energy independence for sites with no access to the grid."
+      },
+      {
+        "tag": "Service",
+        "title": "Maintenance & monitoring",
+        "desc": "Scheduled service, diagnostics, panel cleaning and remote performance control."
+      },
+      {
+        "tag": "Support",
+        "title": "Service support",
+        "desc": "A hotline, remote diagnostics and warranty support. We help set up inverters, batteries and monitoring apps."
+      },
+      {
+        "tag": "DAM",
+        "title": "Day-ahead market operations",
+        "desc": "We tune your battery to hourly DAM prices and support your work with the system: charging schedules, the supply contract, reporting."
+      }
+    ]
+  },
+  "Process": {
+    "eyebrow": "Full cycle",
+    "title": "From plan to launch — step by step",
+    "subtitle": "A transparent process with no responsibility passed to third parties. You see every stage.",
+    "steps": [
+      {
+        "title": "Consultation & audit",
+        "desc": "We analyse your consumption, roof and budget. We calculate capacity and payback for free."
+      },
+      {
+        "title": "Engineering & design",
+        "desc": "We develop the technical solution, wiring scheme and select equipment for your site."
+      },
+      {
+        "title": "Permits & approvals",
+        "desc": "We prepare documents and arrange the feed-in tariff / net-billing and technical conditions."
+      },
+      {
+        "title": "Installation",
+        "desc": "Our own certified crews install the system precisely and on schedule."
+      },
+      {
+        "title": "Connection & launch",
+        "desc": "Commissioning, load testing and putting the plant into operation."
+      },
+      {
+        "title": "Service & monitoring",
+        "desc": "Warranty support, remote monitoring and scheduled maintenance for years ahead."
+      }
+    ]
+  },
+  "WhyUs": {
+    "eyebrow": "Why REZERVOLT",
+    "title": "Premium quality at every stage",
+    "subtitle": "We own the result fully — from the design to the very last kilowatt.",
+    "items": [
+      {
+        "title": "Full turnkey cycle",
+        "desc": "No outside subcontractors — design, installation and service by a single team."
+      },
+      {
+        "title": "Certified equipment",
+        "desc": "We work only with proven brands of panels, inverters and storage."
+      },
+      {
+        "title": "Up to 25-year warranty",
+        "desc": "Warranty on equipment and works, plus a plant performance guarantee."
+      },
+      {
+        "title": "Flexible financing",
+        "desc": "We help with installments, loans and government support programs."
+      }
+    ]
+  },
+  "Equipment": {
+    "eyebrow": "Equipment",
+    "title": "Proven equipment — from panel to switchboard",
+    "subtitle": "We work with leading global manufacturers and match every component to your site, budget and usage.",
+    "categories": {
+      "panels": {
+        "tag": "Generation",
+        "title": "Solar panels",
+        "desc": "High-efficiency monocrystalline modules with low degradation — steady generation for decades.",
+        "specs": ["N-type", "Bifacial", "Half-cut"]
+      },
+      "inverters": {
+        "tag": "Conversion",
+        "title": "Hybrid inverters",
+        "desc": "They manage panels, batteries and the grid and switch to backup automatically during outages.",
+        "specs": ["1- & 3-phase", "UPS backup", "Monitoring"]
+      },
+      "batteries": {
+        "tag": "Storage",
+        "title": "Batteries",
+        "desc": "Safe lithium iron phosphate batteries that are easy to expand module by module.",
+        "specs": ["LiFePO₄", "Built-in BMS", "Modular"]
+      },
+      "protection": {
+        "tag": "Protection",
+        "title": "Switchgear & protection",
+        "desc": "Circuit breakers, RCDs, surge protection and DC switching keep the plant running safely.",
+        "specs": ["AC / DC", "RCD", "Surge protection"]
+      }
+    },
+    "ctaNote": "We'll put together the optimal configuration for your needs and budget.",
+    "cta": "Choose equipment",
+    "trademarks": "Logos and trademarks belong to their respective owners."
+  },
+  "Projects": {
+    "eyebrow": "Our work",
+    "title": "Projects we're proud of",
+    "subtitle": "A few examples of completed systems at different scales.",
+    "items": [
+      {
+        "title": "Private house",
+        "location": "Kyiv region",
+        "power": "10 kW",
+        "desc": "A hybrid system with storage for full autonomy during outages."
+      },
+      {
+        "title": "Logistics center",
+        "location": "Lviv",
+        "power": "250 kW",
+        "desc": "Rooftop commercial plant cutting electricity costs by 60%."
+      },
+      {
+        "title": "Agricultural enterprise",
+        "location": "Poltava region",
+        "power": "1.2 MW",
+        "desc": "Ground-mount industrial plant with full engineering and approvals."
+      },
+      {
+        "title": "Retail chain",
+        "location": "Odesa",
+        "power": "80 kW",
+        "desc": "Rooftop systems across several sites with unified monitoring."
+      }
+    ],
+    "cta": "Discuss your project"
+  },
+  "Calculator": {
+    "eyebrow": "Payback calculator",
+    "title": "Estimate the cost and payback",
+    "subtitle": "Approximate equipment and installation prices incl. VAT. For battery storage we use real hourly day-ahead market prices from the Market Operator.",
+    "modeLabel": "System type",
+    "modes": {
+      "solar": "Solar plant",
+      "storage": "Battery · DAM"
+    },
+    "solar": {
+      "intro": "A grid-tied plant for self-consumption. Savings are counted at your electricity tariff.",
+      "consumptionLabel": "Electricity consumption",
+      "consumptionValue": "{value} kWh/mo",
+      "billHint": "≈ {bill} a month at your tariff",
+      "tariffLabel": "Tariff incl. VAT, ₴/kWh",
+      "system": "Plant capacity",
+      "systemValue": "{value} kW",
+      "generation": "Output per year",
+      "generationValue": "{value} kWh"
+    },
+    "storage": {
+      "intro": "The battery charges from the grid in the cheapest day-ahead market (DAM) hours and powers your site in the most expensive ones.",
+      "capacityLabel": "Storage capacity",
+      "capacityValue": "{value} kWh",
+      "cyclesLabel": "Cycles per day",
+      "cycles": {
+        "1": "1 cycle",
+        "2": "2 cycles"
+      },
+      "periodLabel": "DAM prices",
+      "periods": {
+        "month": "30 days",
+        "year": "12 months"
+      },
+      "system": "Storage power",
+      "systemValue": "{power} kW",
+      "systemHint": "{capacity} kWh · {hours} h discharge",
+      "spread": "Charge → discharge price",
+      "spreadValue": "{charge} → {discharge}",
+      "spreadHint": "₴/kWh — average DAM price ex VAT",
+      "chartTitle": "Average DAM price by hour of day",
+      "chartUnit": "₴/kWh, ex VAT",
+      "chartTable": "Average DAM price and battery action by hour",
+      "legend": {
+        "charge": "Charge",
+        "discharge": "Discharge",
+        "idle": "Idle"
+      },
+      "hour": "Hour",
+      "price": "Price, ₴/kWh",
+      "action": "Action",
+      "source": "Source: <link>Market Operator JSC</link>, DAM, IPS of Ukraine · data for {from} – {to}",
+      "snapshot": "saved data"
+    },
+    "savings": "Savings per year",
+    "cost": "Turnkey cost incl. VAT",
+    "payback": "Payback",
+    "paybackValue": "{years, plural, one {# year} other {# years}}",
+    "noPayback": "Over 25 years",
+    "breakdown": {
+      "title": "Cost breakdown",
+      "equipment": "Equipment",
+      "works": "Works",
+      "net": "Total ex VAT",
+      "vat": "VAT {rate}%",
+      "total": "Total incl. VAT",
+      "items": {
+        "panels": "LONGi / JA Solar panels",
+        "inverter": "Deye grid-tied inverter",
+        "mounting": "Mounting structures",
+        "electrical": "Cabling, ABB / ETI protection, metering",
+        "design": "Design, approvals, launch",
+        "batteries": "Dyness / Pylontech LFP batteries",
+        "hybridInverter": "Deye hybrid inverter",
+        "cabinet": "Cabinet, BMS, protection, cabling",
+        "ems": "Design, EMS set-up for DAM, launch",
+        "installation": "Installation works"
+      }
+    },
+    "assumptions": {
+      "title": "What the estimate assumes",
+      "solarYield": "Output of {value} kWh per 1 kW of capacity per year (Ukrainian average).",
+      "solarCoverage": "The plant is sized for ~{value}% of annual consumption: the summer surplus sells on the DAM for almost nothing.",
+      "solarSelfUse": "{value}% of the generated energy is used on site and counted at your tariff.",
+      "storagePlan": "For every day of the period we find the most profitable charge and discharge hours at actual DAM prices.",
+      "storageEfficiency": "Round-trip efficiency of {value}%; the battery cycles on {availability}% of days.",
+      "storageFees": "Transmission and distribution (~{fee} per kWh) cost you only on losses — battery energy isn't bought from the grid.",
+      "storageLoad": "The site's load during discharge hours is at least the battery's power.",
+      "vat": "Equipment, works and savings include {value}% VAT."
+    },
+    "cta": "Get an exact estimate",
+    "disclaimer": "A preliminary estimate: equipment prices are approximate and battery income depends on future DAM prices. We prepare the exact quote after a free audit."
+  },
+  "Testimonials": {
+    "eyebrow": "Testimonials",
+    "title": "What our clients say",
+    "items": [
+      {
+        "quote": "They did everything turnkey in three weeks. Our bills dropped to almost zero, and during outages the house runs as usual.",
+        "name": "Andriy K.",
+        "role": "Homeowner, Kyiv"
+      },
+      {
+        "quote": "A professional team: not a single missed deadline from design to launch. Monitoring shows real savings every day.",
+        "name": "Olena M.",
+        "role": "Director, retail chain"
+      },
+      {
+        "quote": "A complex industrial site, but REZERVOLT's engineers calculated and approved everything. The plant has run reliably for two years.",
+        "name": "Serhii V.",
+        "role": "Chief engineer, agri holding"
+      }
+    ]
+  },
+  "Faq": {
+    "eyebrow": "Q&A",
+    "title": "Frequently asked questions",
+    "items": [
+      {
+        "q": "How much does a solar system cost?",
+        "a": "The cost depends on capacity, system type and equipment. After a free audit you get an exact quote and a payback calculation."
+      },
+      {
+        "q": "How long does installation take?",
+        "a": "For a private house it's usually 1–3 weeks including design and approvals. Large sites run on an individual schedule."
+      },
+      {
+        "q": "Does the system work during power outages?",
+        "a": "Yes, if it's a hybrid system with storage or backup power. We'll pick a solution that fits your needs."
+      },
+      {
+        "q": "What is the warranty?",
+        "a": "Up to 25 years on panels, separate warranties for inverters and installation, plus a plant performance guarantee."
+      },
+      {
+        "q": "Do you help with paperwork and financing?",
+        "a": "Yes. We handle approvals and technical conditions and help with installments, loans and support programs."
+      }
+    ]
+  },
+  "Contact": {
+    "eyebrow": "Still have questions?",
+    "title": "Get a free consultation",
+    "subtitle": "Leave your contacts — an engineer will call you, answer questions and prepare a preliminary estimate.",
+    "form": {
+      "name": "Your name",
+      "phone": "Phone",
+      "message": "Briefly about your site (optional)",
+      "submit": "Send request",
+      "note": "By clicking the button you agree to data processing.",
+      "soon": "Form submission arrives in the next phase — for now please call us directly."
+    },
+    "contactsTitle": "Contacts",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "addressLabel": "Address",
+    "hoursLabel": "Hours",
+    "hours": "Mon–Sat, 9:00–19:00"
+  },
+  "Footer": {
+    "tagline": "Turnkey solar power systems — from plan to full realization.",
+    "navTitle": "Navigation",
+    "contactsTitle": "Contacts",
+    "socialTitle": "Find us",
+    "rights": "All rights reserved.",
+    "madeWith": "Made with care for the planet ☀"
+  },
+  "Theme": {
+    "toLight": "Light theme",
+    "toDark": "Dark theme"
+  },
+  "Locale": {
+    "switch": "Language",
+    "uk": "UA",
+    "en": "EN"
+  },
+  "Common": {
+    "backToTop": "Back to top",
+    "loading3d": "Loading 3D scene…"
+  }
+}

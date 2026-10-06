@@ -39,3 +39,23 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# AI assistants (local only — not part of the repo)
+CLAUDE.md
+CLAUDE.local.md
+AGENTS.md
+GEMINI.md
+.claude/
+.cursor/
+.cursorrules
+.cursorignore
+.windsurfrules
+.clinerules
+.continue/
+.codex/
+.gemini/
+.aider*
+.github/copilot-instructions.md
+
+# Project notes / AI plans (local only)
+docs/
