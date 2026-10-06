@@ -1,6 +1,8 @@
-export function PanelPoster() {
+import { cn } from "@/lib/utils";
+
+export function PanelPoster({ className }: { className?: string }) {
   return (
-    <div className="absolute inset-0 grid place-items-center overflow-hidden">
+    <div className={cn("absolute inset-0 grid place-items-center overflow-hidden", className)}>
       <div className="absolute h-72 w-72 rounded-full bg-solar-500/25 blur-3xl" />
       <div className="absolute right-[20%] top-[22%] h-28 w-28 rounded-full bg-gradient-to-br from-solar-300 to-solar-500 blur-md opacity-80" />
       <div className="relative [perspective:1200px]">

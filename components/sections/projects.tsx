@@ -38,7 +38,7 @@ export function Projects() {
           {items.map((p, i) => (
             <article
               key={i}
-              className="group relative overflow-hidden rounded-3xl border border-border bg-card/40 transition-all duration-500 hover:-translate-y-1.5 hover:border-solar-500/40 hover:shadow-soft"
+              className="group relative overflow-hidden rounded-3xl border border-border bg-card/40 transition-[translate,border-color,box-shadow] duration-500 hover:-translate-y-1.5 hover:border-solar-500/40 hover:shadow-soft"
             >
               <div
                 className={`relative aspect-[16/10] overflow-hidden bg-gradient-to-br ${GRADIENTS[i % GRADIENTS.length]}`}

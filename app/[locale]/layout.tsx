@@ -50,7 +50,7 @@ export async function generateMetadata({
     twitter: { card: "summary_large_image", title: t("title"), description: t("description") },
     alternates: {
       canonical: `/${locale}`,
-      languages: { uk: "/uk", en: "/en", "x-default": `/${routing.defaultLocale}` },
+      languages: { uk: "/uk", en: "/en", "x-default": "/" },
     },
   };
 }

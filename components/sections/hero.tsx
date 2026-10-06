@@ -32,11 +32,6 @@ export function Hero() {
           { y: 16, opacity: 0, duration: 0.5, stagger: 0.1 },
           "-=0.3",
         )
-        .from(
-          "[data-hero='canvas']",
-          { opacity: 0, scale: 0.92, duration: 1.2 },
-          "-=1.1",
-        )
         .from("[data-hero='hint']", { opacity: 0, duration: 0.6 }, "-=0.2");
     },
     { scope: root, dependencies: [reduced] },
@@ -52,13 +47,13 @@ export function Hero() {
     <section
       id="top"
       ref={root}
-      className="relative min-h-dvh overflow-hidden pt-28"
+      className="relative min-h-svh overflow-hidden pt-28"
     >
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-60 [mask-image:radial-gradient(ellipse_at_center,black,transparent_72%)]" />
       <div className="pointer-events-none absolute -left-40 top-0 h-[34rem] w-[34rem] rounded-full bg-solar-500/15 blur-3xl" />
       <div className="pointer-events-none absolute -right-32 bottom-0 h-[28rem] w-[28rem] rounded-full bg-accent/10 blur-3xl" />
 
-      <Container className="relative grid items-center gap-8 pb-20 lg:min-h-[calc(100dvh-7rem)] lg:grid-cols-2 lg:gap-6">
+      <Container className="relative grid items-center gap-8 pb-20 lg:min-h-[calc(100svh-7rem)] lg:grid-cols-2 lg:gap-6">
         <div className="relative z-10">
           <span
             data-hero="badge"

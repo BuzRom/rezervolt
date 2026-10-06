@@ -34,7 +34,7 @@ export function LocaleSwitcher({ className }: { className?: string }) {
             "h-8 rounded-full px-2.5 text-xs font-semibold uppercase tracking-wide transition-colors",
             l === locale
               ? "bg-gradient-to-br from-solar-400 to-solar-600 text-primary-foreground"
-              : "text-foreground/55 hover:text-foreground",
+              : "text-foreground/70 hover:text-foreground",
           )}
         >
           {LABEL[l] ?? l}

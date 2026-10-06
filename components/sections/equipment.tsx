@@ -57,19 +57,28 @@ export function Equipment() {
 
       cards.forEach((card) => {
         let pending: gsap.core.Tween | undefined;
+        const on = () => {
+          pending?.kill();
+          const delay = card.offsetLeft > cards[0].offsetLeft ? 0.35 : 0;
+          pending = gsap.delayedCall(delay, powerOn, [card]);
+        };
+        const off = () => {
+          pending?.kill();
+          card.removeAttribute("data-powered");
+        };
         ScrollTrigger.create({
           trigger: card,
           start: "top 80%",
           end: "bottom 20%",
-          onToggle: ({ isActive }) => {
-            pending?.kill();
-            if (!isActive) {
-              card.removeAttribute("data-powered");
-              return;
-            }
-            const delay = card.offsetLeft > cards[0].offsetLeft ? 0.35 : 0;
-            pending = gsap.delayedCall(delay, powerOn, [card]);
-          },
+          onEnter: on,
+          onEnterBack: on,
+        });
+        ScrollTrigger.create({
+          trigger: card,
+          start: "top bottom",
+          end: "bottom top",
+          onLeave: off,
+          onLeaveBack: off,
         });
       });
     },
@@ -91,7 +100,7 @@ export function Equipment() {
                 key={id}
                 data-equip
                 className={cn(
-                  "group/equip relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card/40 transition-all duration-500 hover:-translate-y-1.5 hover:border-solar-500/40 hover:shadow-soft",
+                  "group/equip relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card/40 transition-[translate,border-color,box-shadow] duration-500 hover:-translate-y-1.5 hover:border-solar-500/40 hover:shadow-soft",
                   wide && "md:col-span-2",
                 )}
               >
@@ -162,7 +171,7 @@ export function Equipment() {
             <ArrowRight className="h-4 w-4" />
           </Button>
         </Reveal>
-        <p className="mt-10 text-center text-xs text-muted-foreground/70">{t("trademarks")}</p>
+        <p className="mt-10 text-center text-xs text-muted-foreground">{t("trademarks")}</p>
       </Container>
     </section>
   );

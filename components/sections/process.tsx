@@ -150,14 +150,14 @@ export function Process() {
                     key={i}
                     data-step
                     data-active={i === 0}
-                    className="group/step rounded-2xl border border-border bg-card/30 px-5 py-4 opacity-50 transition-all duration-300 data-[active=true]:border-solar-500/40 data-[active=true]:bg-card data-[active=true]:opacity-100 data-[active=true]:shadow-soft"
+                    className="group/step rounded-2xl border border-border bg-card/30 px-5 py-4 transition-all duration-300 data-[active=true]:border-solar-500/40 data-[active=true]:bg-card data-[active=true]:shadow-soft"
                   >
                     <div className="flex items-baseline gap-4">
-                      <span className="font-display text-xl font-bold text-gradient">
+                      <span className="font-display text-xl font-bold text-gradient opacity-50 transition-opacity duration-300 group-data-[active=true]/step:opacity-100">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <div>
-                        <h3 className="text-base font-semibold">{step.title}</h3>
+                        <h3 className="text-base font-semibold text-muted-foreground transition-colors duration-300 group-data-[active=true]/step:text-foreground">{step.title}</h3>
                         <p className="mt-1 text-sm leading-snug text-muted-foreground [@media(max-height:820px)]:hidden [@media(max-height:820px)]:group-data-[active=true]/step:block">
                           {step.desc}
                         </p>

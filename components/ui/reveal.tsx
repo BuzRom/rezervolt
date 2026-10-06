@@ -24,9 +24,9 @@ export function Reveal({
   const reduced = usePrefersReducedMotion();
 
   useGSAP(
-    () => {
+    (_, contextSafe) => {
       const el = ref.current;
-      if (!el) return;
+      if (!el || !contextSafe) return;
 
       const targets = stagger ? (Array.from(el.children) as HTMLElement[]) : el;
 
@@ -35,19 +35,30 @@ export function Reveal({
         return;
       }
 
-      gsap.fromTo(
-        targets,
-        { opacity: 0, y },
-        {
+      gsap.set(targets, { opacity: 0, y });
+
+      const show = contextSafe(() => {
+        gsap.to(targets, {
           opacity: 1,
           y: 0,
           duration: 0.9,
           delay,
           ease: "power3.out",
           stagger: stagger ?? 0,
-          scrollTrigger: { trigger: el, start: "top 85%", once: true },
+        });
+      });
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          const passed = entry.boundingClientRect.top < (entry.rootBounds?.bottom ?? innerHeight);
+          if (!entry.isIntersecting && !passed) return;
+          observer.disconnect();
+          show();
         },
+        { rootMargin: "0px 0px -15% 0px" },
       );
+      observer.observe(el);
+      return () => observer.disconnect();
     },
     { scope: ref, dependencies: [reduced] },
   );

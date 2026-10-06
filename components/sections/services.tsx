@@ -51,7 +51,7 @@ export function Services() {
             return (
               <article
                 key={i}
-                className="group relative overflow-hidden rounded-2xl border border-border bg-card/50 p-6 transition-all duration-500 lg:p-5 xl:p-6 hover:-translate-y-1.5 hover:border-solar-500/40 hover:shadow-soft"
+                className="group relative overflow-hidden rounded-2xl border border-border bg-card/50 p-6 transition-[translate,border-color,box-shadow] duration-500 lg:p-5 xl:p-6 hover:-translate-y-1.5 hover:border-solar-500/40 hover:shadow-soft"
               >
                 <div
                   aria-hidden

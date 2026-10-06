@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { useTranslations } from "next-intl";
 import { Clock, type LucideIcon } from "lucide-react";
 import { VAT_RATE, type CostEstimate } from "@/lib/calculator";
@@ -78,6 +79,7 @@ export function Results({
 function CostBreakdown({ cost }: { cost: CostEstimate }) {
   const t = useTranslations("Calculator.breakdown");
   const fmt = useFormat();
+  const titleId = useId();
   const groups = (["equipment", "works"] as const).map((group) => ({
     group,
     lines: cost.lines.filter((line) => line.group === group),
@@ -85,18 +87,18 @@ function CostBreakdown({ cost }: { cost: CostEstimate }) {
 
   return (
     <div className="rounded-2xl border border-border bg-background/60 p-5 sm:p-6">
-      <h3 className="font-display text-base font-semibold">{t("title")}</h3>
-      <table className="mt-3 w-full text-sm">
+      <h3 id={titleId} className="font-display text-base font-semibold">{t("title")}</h3>
+      <table aria-labelledby={titleId} className="mt-3 w-full text-sm">
         {groups.map(({ group, lines }) => (
           <tbody key={group}>
             <tr>
               <th
                 scope="rowgroup"
-                colSpan={2}
                 className="pb-1 pt-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground"
               >
                 {t(group)}
               </th>
+              <td />
             </tr>
             {lines.map((line) => (
               <tr key={line.id}>
