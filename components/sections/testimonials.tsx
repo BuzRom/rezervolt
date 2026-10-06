@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Quote, Star } from "lucide-react";
+import { Pause, Play, Quote, Star } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -9,9 +10,13 @@ import { cn } from "@/lib/utils";
 
 type Item = { quote: string; name: string; role: string };
 
-function Card({ item }: { item: Item }) {
+function Card({ item, copy }: { item: Item; copy?: boolean }) {
   return (
-    <figure className="flex w-[20rem] shrink-0 flex-col rounded-2xl border border-border bg-card/50 p-7 sm:w-[24rem]">
+    <figure
+      aria-hidden={copy || undefined}
+      inert={copy}
+      className="flex w-[20rem] shrink-0 flex-col rounded-2xl border border-border bg-card/50 p-7 sm:w-[24rem]"
+    >
       <Quote className="h-7 w-7 text-solar-500/60" />
       <blockquote className="mt-4 flex-1 text-pretty text-sm leading-relaxed text-foreground/90">
         “{item.quote}”
@@ -33,6 +38,7 @@ export function Testimonials() {
   const t = useTranslations("Testimonials");
   const items = t.raw("items") as Item[];
   const reduced = usePrefersReducedMotion();
+  const [paused, setPaused] = useState(false);
 
   return (
     <section className="relative overflow-hidden py-24 sm:py-32">
@@ -49,19 +55,33 @@ export function Testimonials() {
           </div>
         </Container>
       ) : (
-        <div className="group relative mt-14 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-          <div
-            className={cn(
-              "flex w-max gap-6 pr-6 animate-marquee group-hover:[animation-play-state:paused]",
-            )}
-          >
-            {[...items, ...items, ...items, ...items, ...items, ...items].map(
-              (item, i) => (
-                <Card key={i} item={item} />
-              ),
-            )}
+        <>
+          <div className="group relative mt-14 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+            <div
+              className={cn(
+                "flex w-max gap-6 pr-6 animate-marquee group-hover:[animation-play-state:paused]",
+                paused && "[animation-play-state:paused]",
+              )}
+            >
+              {[...items, ...items, ...items, ...items, ...items, ...items].map(
+                (item, i) => (
+                  <Card key={i} item={item} copy={i >= items.length} />
+                ),
+              )}
+            </div>
           </div>
-        </div>
+          <Container className="mt-6 flex justify-end">
+            <button
+              type="button"
+              aria-label={t("pause")}
+              aria-pressed={paused}
+              onClick={() => setPaused((v) => !v)}
+              className="grid h-10 w-10 place-items-center rounded-full border border-border bg-card/40 text-foreground transition-colors hover:border-solar-500/50 hover:text-solar-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            >
+              {paused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+            </button>
+          </Container>
+        </>
       )}
     </section>
   );

@@ -46,7 +46,7 @@ export function SolarCalculator() {
               value={tariffInput}
               onChange={(e) => setTariffInput(e.target.value)}
               aria-invalid={!tariffValid}
-              className="mt-3 block h-12 w-32 rounded-xl border border-input bg-background/60 px-4 font-display text-lg font-bold tabular-nums transition-colors duration-300 focus:border-solar-500 focus:outline-none aria-invalid:border-red-500/70"
+              className="mt-3 block h-12 w-32 rounded-xl border border-input bg-background/60 px-4 font-display text-lg font-bold tabular-nums transition-colors duration-300 focus:border-solar-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-invalid:border-red-500/70"
             />
           </div>
         </>

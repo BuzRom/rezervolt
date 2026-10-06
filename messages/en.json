@@ -9,7 +9,8 @@
     "projects": "Projects",
     "calculator": "Calculator",
     "faq": "FAQ",
-    "cta": "Free consultation"
+    "cta": "Free consultation",
+    "menu": "Menu"
   },
   "Hero": {
     "badge": "Full cycle • 25-year warranty",
@@ -297,6 +298,7 @@
   "Testimonials": {
     "eyebrow": "Testimonials",
     "title": "What our clients say",
+    "pause": "Pause testimonials",
     "items": [
       {
         "quote": "They did everything turnkey in three weeks. Our bills dropped to almost zero, and during outages the house runs as usual.",
@@ -380,6 +382,10 @@
   "NotFound": {
     "title": "Page not found",
     "back": "Back to home"
+  },
+  "Error": {
+    "title": "Something went wrong",
+    "retry": "Try again"
   },
   "Common": {
     "backToTop": "Back to top",

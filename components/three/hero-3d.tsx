@@ -1,13 +1,25 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { Component, useEffect, useState, type ReactNode } from "react";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 import { PanelPoster } from "./panel-poster";
 
 const HeroCanvas = dynamic(() => import("./hero-canvas"), { ssr: false });
+
+class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
 
 function whenIdle(run: () => void) {
   let idleId: number | undefined;
@@ -47,7 +59,11 @@ export function Hero3D() {
           show3d && ready && "invisible opacity-0",
         )}
       />
-      {show3d && <HeroCanvas onReady={setReady} />}
+      {show3d && (
+        <SceneBoundary>
+          <HeroCanvas onReady={setReady} />
+        </SceneBoundary>
+      )}
     </>
   );
 }

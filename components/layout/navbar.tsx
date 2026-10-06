@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Menu, X } from "lucide-react";
 import { navLinks, site } from "@/lib/site";
@@ -15,6 +15,9 @@ export function Navbar() {
   const t = useTranslations("Nav");
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const menuId = useId();
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -24,15 +27,36 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    if (!open) return;
+    const header = toggleRef.current?.closest("header") ?? null;
+    const outside = Array.from(document.body.children).filter(
+      (el): el is HTMLElement => el instanceof HTMLElement && !el.contains(header),
+    );
+    document.body.style.overflow = "hidden";
+    outside.forEach((el) => {
+      el.inert = true;
+    });
+    menuRef.current?.querySelector<HTMLElement>("a[href], button")?.focus();
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      toggleRef.current?.focus();
+    };
+    document.addEventListener("keydown", onKey);
     return () => {
+      document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      outside.forEach((el) => {
+        el.inert = false;
+      });
     };
   }, [open]);
 
   return (
     <header
       data-site-header
+      data-lenis-prevent={open ? "" : undefined}
       className={cn(
         "fixed inset-x-0 top-0 z-50 h-[var(--header-h,4.5rem)] border-b border-border bg-background transition-shadow duration-500",
         scrolled && "shadow-soft",
@@ -69,9 +93,11 @@ export function Navbar() {
               </Button>
             </Magnetic>
             <button
+              ref={toggleRef}
               type="button"
-              aria-label="Menu"
+              aria-label={t("menu")}
               aria-expanded={open}
+              aria-controls={menuId}
               onClick={() => setOpen((v) => !v)}
               className="grid h-10 w-10 place-items-center rounded-full border border-border bg-card/40 text-foreground lg:hidden"
             >
@@ -82,11 +108,14 @@ export function Navbar() {
       </div>
 
       <div
+        id={menuId}
+        ref={menuRef}
+        inert={!open}
         className={cn(
-          "fixed inset-0 top-0 z-40 origin-top bg-background/95 backdrop-blur-xl transition-all duration-300 lg:hidden",
+          "fixed inset-0 top-0 z-40 bg-background/95 backdrop-blur-xl duration-300 lg:hidden",
           open
-            ? "pointer-events-auto opacity-100"
-            : "pointer-events-none opacity-0",
+            ? "visible opacity-100 transition-opacity"
+            : "invisible opacity-0 transition-[opacity,visibility]",
         )}
       >
         <div className="flex h-full flex-col items-center justify-center gap-6">

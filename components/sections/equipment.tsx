@@ -4,8 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { ArrowRight } from "lucide-react";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { gsap, MOTION_OK, MOTION_REDUCE, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { equipment, type Brand, type EquipmentId } from "@/lib/equipment";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/container";
@@ -43,46 +42,47 @@ function logoSize({ width, height, scale = 1 }: Brand["logo"]) {
 export function Equipment() {
   const t = useTranslations("Equipment");
   const root = useRef<HTMLElement>(null);
-  const reduced = usePrefersReducedMotion();
 
   useGSAP(
     () => {
       const cards = gsap.utils.toArray<HTMLElement>("[data-equip]");
       const powerOn = (card: HTMLElement) => card.setAttribute("data-powered", "");
+      const mm = gsap.matchMedia(root);
 
-      if (reduced) {
+      mm.add(MOTION_REDUCE, () => {
         cards.forEach(powerOn);
-        return;
-      }
+      });
 
-      cards.forEach((card) => {
-        let pending: gsap.core.Tween | undefined;
-        const on = () => {
-          pending?.kill();
-          const delay = card.offsetLeft > cards[0].offsetLeft ? 0.35 : 0;
-          pending = gsap.delayedCall(delay, powerOn, [card]);
-        };
-        const off = () => {
-          pending?.kill();
-          card.removeAttribute("data-powered");
-        };
-        ScrollTrigger.create({
-          trigger: card,
-          start: "top 80%",
-          end: "bottom 20%",
-          onEnter: on,
-          onEnterBack: on,
-        });
-        ScrollTrigger.create({
-          trigger: card,
-          start: "top bottom",
-          end: "bottom top",
-          onLeave: off,
-          onLeaveBack: off,
+      mm.add(MOTION_OK, () => {
+        cards.forEach((card) => {
+          let pending: gsap.core.Tween | undefined;
+          const on = () => {
+            pending?.kill();
+            const delay = card.offsetLeft > cards[0].offsetLeft ? 0.35 : 0;
+            pending = gsap.delayedCall(delay, powerOn, [card]);
+          };
+          const off = () => {
+            pending?.kill();
+            card.removeAttribute("data-powered");
+          };
+          ScrollTrigger.create({
+            trigger: card,
+            start: "top 80%",
+            end: "bottom 20%",
+            onEnter: on,
+            onEnterBack: on,
+          });
+          ScrollTrigger.create({
+            trigger: card,
+            start: "top bottom",
+            end: "bottom top",
+            onLeave: off,
+            onLeaveBack: off,
+          });
         });
       });
     },
-    { scope: root, dependencies: [reduced] },
+    { scope: root },
   );
 
   return (

@@ -21,7 +21,7 @@ export function Contact() {
   ].filter((d) => !hiddenContacts.has(d.id));
 
   const inputCls =
-    "h-12 w-full rounded-xl border border-input bg-background/70 px-4 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-solar-500/60";
+    "h-12 w-full rounded-xl border border-input bg-background/70 px-4 text-sm transition-colors placeholder:text-muted-foreground focus:border-solar-500/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
 
   return (
     <section id="contact" className="relative py-24 sm:py-32">

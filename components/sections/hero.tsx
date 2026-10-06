@@ -3,8 +3,7 @@
 import { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { ArrowRight, ChevronDown, Headphones, ShieldCheck, Zap } from "lucide-react";
-import { gsap, useGSAP } from "@/lib/gsap";
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { gsap, MOTION_OK, useGSAP } from "@/lib/gsap";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/magnetic";
@@ -13,28 +12,29 @@ import { Hero3D } from "@/components/three/hero-3d";
 export function Hero() {
   const t = useTranslations("Hero");
   const root = useRef<HTMLElement>(null);
-  const reduced = usePrefersReducedMotion();
 
   useGSAP(
     () => {
-      if (reduced) return;
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      tl.from("[data-hero='badge']", { y: 18, opacity: 0, duration: 0.6 })
-        .from(
-          "[data-hero='line']",
-          { yPercent: 115, duration: 0.9, stagger: 0.12 },
-          "-=0.2",
-        )
-        .from("[data-hero='sub']", { y: 20, opacity: 0, duration: 0.7 }, "-=0.5")
-        .from("[data-hero='cta']", { y: 20, opacity: 0, duration: 0.6 }, "-=0.4")
-        .from(
-          "[data-hero='trust'] > *",
-          { y: 16, opacity: 0, duration: 0.5, stagger: 0.1 },
-          "-=0.3",
-        )
-        .from("[data-hero='hint']", { opacity: 0, duration: 0.6 }, "-=0.2");
+      gsap.matchMedia(root).add(MOTION_OK, () => {
+        gsap
+          .timeline({ defaults: { ease: "power3.out" } })
+          .from("[data-hero='badge']", { y: 18, opacity: 0, duration: 0.6 })
+          .from(
+            "[data-hero='line']",
+            { yPercent: 115, duration: 0.9, stagger: 0.12 },
+            "-=0.2",
+          )
+          .from("[data-hero='sub']", { y: 20, opacity: 0, duration: 0.7 }, "-=0.5")
+          .from("[data-hero='cta']", { y: 20, opacity: 0, duration: 0.6 }, "-=0.4")
+          .from(
+            "[data-hero='trust'] > *",
+            { y: 16, opacity: 0, duration: 0.5, stagger: 0.1 },
+            "-=0.3",
+          )
+          .from("[data-hero='hint']", { opacity: 0, duration: 0.6 }, "-=0.2");
+      });
     },
-    { scope: root, dependencies: [reduced] },
+    { scope: root },
   );
 
   const trust = [

@@ -16,7 +16,8 @@
   --primary: #ea7a0c;
   --primary-foreground: #1a1100;
   --accent: #0f9d8f;
-  --ring: #f59e0b;
+  --ring: #b04f09;
+  --text-gradient: linear-gradient(100deg, #c2410c, #9a3412 55%, #b04f09);
   --glow: 245 158 11;
   --header-h: 4.5rem;
   --chart-charge: #0d9488;
@@ -36,6 +37,7 @@
   --primary-foreground: #1a1100;
   --accent: #2dd4bf;
   --ring: #fbbf24;
+  --text-gradient: linear-gradient(100deg, #fbbf24, #ea7a0c 55%, #fcd34d);
   --glow: 251 191 36;
   --chart-charge: #22a596;
   --chart-discharge: #dd6d10;
@@ -120,6 +122,10 @@
     cursor: pointer;
   }
 
+  [tabindex="-1"]:focus {
+    outline: none;
+  }
+
   html {
     scroll-behavior: auto;
     -webkit-text-size-adjust: 100%;
@@ -158,12 +164,7 @@
 }
 
 @utility text-gradient {
-  background-image: linear-gradient(
-    100deg,
-    var(--color-solar-400),
-    var(--color-solar-600) 55%,
-    var(--color-solar-300)
-  );
+  background-image: var(--text-gradient);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;

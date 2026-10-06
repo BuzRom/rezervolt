@@ -11,8 +11,7 @@ import {
   Search,
   type LucideIcon,
 } from "lucide-react";
-import { gsap, headerHeight, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { gsap, headerHeight, MOTION_OK, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 
@@ -33,14 +32,12 @@ export function Process() {
   const t = useTranslations("Process");
   const steps = t.raw("steps") as Step[];
   const root = useRef<HTMLDivElement>(null);
-  const reduced = usePrefersReducedMotion();
 
   useGSAP(
     () => {
-      if (reduced) return;
       const mm = gsap.matchMedia();
 
-      mm.add("(min-width: 1024px)", () => {
+      mm.add(`(min-width: 1024px) and ${MOTION_OK}`, () => {
         const pin = root.current!.querySelector<HTMLElement>("[data-pin]")!;
         const stepEls = gsap.utils.toArray<HTMLElement>("[data-step]");
         const cells = gsap.utils.toArray<HTMLElement>("[data-cell]");
@@ -79,7 +76,7 @@ export function Process() {
 
       return () => mm.revert();
     },
-    { scope: root, dependencies: [reduced] },
+    { scope: root },
   );
 
   return (
@@ -96,7 +93,7 @@ export function Process() {
         />
       </Container>
 
-      <div className="mt-6 hidden lg:block">
+      <div className="mt-6 hidden lg:motion-safe:block">
         <div
           data-pin
           className="relative flex min-h-[calc(100dvh-var(--header-h,4.5rem))] items-center py-6"
@@ -158,7 +155,7 @@ export function Process() {
                       </span>
                       <div>
                         <h3 className="text-base font-semibold text-muted-foreground transition-colors duration-300 group-data-[active=true]/step:text-foreground">{step.title}</h3>
-                        <p className="mt-1 text-sm leading-snug text-muted-foreground [@media(max-height:820px)]:hidden [@media(max-height:820px)]:group-data-[active=true]/step:block">
+                        <p className="mt-1 text-sm leading-snug text-muted-foreground [@media(max-height:820px)]:sr-only [@media(max-height:820px)]:group-data-[active=true]/step:not-sr-only">
                           {step.desc}
                         </p>
                       </div>
@@ -171,8 +168,8 @@ export function Process() {
         </div>
       </div>
 
-      <Container className="mt-12 lg:hidden">
-        <ol className="space-y-6">
+      <Container className="mt-12 lg:motion-safe:hidden">
+        <ol className="space-y-6 lg:mx-auto lg:max-w-3xl">
           {steps.map((step, i) => {
             const Icon = ICONS[i % ICONS.length];
             return (

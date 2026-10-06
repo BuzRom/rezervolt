@@ -42,17 +42,23 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     gsap.ticker.lagSmoothing(0);
 
     const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       const anchor = (e.target as HTMLElement)?.closest?.(
         'a[href^="#"]',
       ) as HTMLAnchorElement | null;
       if (!anchor) return;
       const id = anchor.getAttribute("href");
       if (!id || id === "#") return;
-      const el = document.querySelector(id);
-      if (el) {
-        e.preventDefault();
-        lenis.scrollTo(el as HTMLElement);
-      }
+      const el = document.querySelector<HTMLElement>(id);
+      if (!el) return;
+      e.preventDefault();
+      lenis.scrollTo(el);
+      if (location.hash !== id) history.pushState(history.state, "", id);
+      requestAnimationFrame(() => {
+        if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
+        el.focus({ preventScroll: true });
+      });
     };
     document.addEventListener("click", onClick);
 
