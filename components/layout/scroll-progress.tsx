@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 
-/** Thin gradient bar at the very top that tracks scroll progress. */
 export function ScrollProgress() {
   const ref = useRef<HTMLDivElement>(null);
 

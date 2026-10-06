@@ -11,7 +11,6 @@ import { StorageCalculator } from "./storage-calculator";
 
 type Mode = "solar" | "storage";
 
-/** Interactive part of the calculator: a solar plant or a grid-charged battery (DAM arbitrage). */
 export function CalculatorPanel({ dam }: { dam: DamStats }) {
   const t = useTranslations("Calculator");
   const [mode, setMode] = useState<Mode>("solar");
@@ -30,7 +29,6 @@ export function CalculatorPanel({ dam }: { dam: DamStats }) {
         onChange={setMode}
       />
 
-      {/* Both stay mounted so switching modes keeps the inputs. */}
       <div className="mt-8">
         <div hidden={mode !== "solar"}>
           <SolarCalculator />

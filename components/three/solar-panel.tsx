@@ -4,7 +4,6 @@ import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 
-/** Draws a realistic monocrystalline cell grid into a canvas texture. */
 function useCellTexture() {
   return useMemo(() => {
     const w = 620;
@@ -35,7 +34,6 @@ function useCellTexture() {
         ctx.fillStyle = grad;
         ctx.fillRect(x, y, cellW, cellH);
 
-        // Busbars (thin silver lines)
         ctx.strokeStyle = "rgba(190,205,225,0.22)";
         ctx.lineWidth = 1.5;
         for (let b = 1; b <= 2; b++) {
@@ -64,7 +62,6 @@ export function SolarPanel(props: React.ComponentProps<"group">) {
   useFrame((state, delta) => {
     const g = group.current;
     if (!g) return;
-    // Pointer parallax + slow idle sway.
     const t = state.clock.elapsedTime;
     target.current.y = state.pointer.x * 0.4 + Math.sin(t * 0.3) * 0.18;
     target.current.x = -state.pointer.y * 0.25 + Math.cos(t * 0.24) * 0.06;
@@ -83,14 +80,12 @@ export function SolarPanel(props: React.ComponentProps<"group">) {
     [],
   );
 
-  // Panel dimensions
   const W = 3.05;
-  const H = 4.9 / 2.5; // ~1.96
-  const fw = 0.07; // frame width
+  const H = 4.9 / 2.5;
+  const fw = 0.07;
 
   return (
     <group ref={group} {...props} scale={1.05}>
-      {/* Glass + cells surface */}
       <mesh castShadow>
         <boxGeometry args={[W, H, 0.05]} />
         <meshPhysicalMaterial
@@ -104,7 +99,6 @@ export function SolarPanel(props: React.ComponentProps<"group">) {
         />
       </mesh>
 
-      {/* Aluminium frame (4 bars) */}
       <mesh position={[0, H / 2 + fw / 2, 0]} material={frameMat}>
         <boxGeometry args={[W + fw * 2, fw, 0.12]} />
       </mesh>
@@ -118,7 +112,6 @@ export function SolarPanel(props: React.ComponentProps<"group">) {
         <boxGeometry args={[fw, H, 0.12]} />
       </mesh>
 
-      {/* Back plate */}
       <mesh position={[0, 0, -0.06]}>
         <boxGeometry args={[W, H, 0.04]} />
         <meshStandardMaterial color="#0c1320" metalness={0.4} roughness={0.7} />

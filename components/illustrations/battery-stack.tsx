@@ -1,10 +1,9 @@
 import { cn } from "@/lib/utils";
 import { Depth, useSvgId } from "./parts";
 
-const MODULE_Y = [74, 128, 182]; // top → bottom
+const MODULE_Y = [74, 128, 182];
 const SOC_BARS = 5;
 
-/** Stack of rack LiFePO₄ modules; once powered the SOC bars fill up and the top one keeps charging. */
 export function BatteryStack({ className }: { className?: string }) {
   const id = useSvgId();
   const depth = `url(#${id}-depth)`;
@@ -28,7 +27,6 @@ export function BatteryStack({ className }: { className?: string }) {
         </filter>
       </defs>
 
-      {/* Charging badge */}
       <g className="opacity-0 transition-opacity delay-700 duration-700 powered:opacity-100">
         <circle cx="154" cy="32" r="13" fill="#34d399" fillOpacity="0.14" stroke="#34d399" strokeOpacity="0.5" />
         <path
@@ -38,12 +36,10 @@ export function BatteryStack({ className }: { className?: string }) {
         />
       </g>
 
-      {/* Floor shadow + plinth */}
       <ellipse cx="156" cy="250" rx="112" ry="9" fill="#000" opacity="0.25" filter={`url(#${id}-shadow)`} />
       <Depth x={52} y={232} width={192} height={10} rx={3} dx={12} dy={-9} fill={depth} />
       <rect x="52" y="232" width="192" height="10" rx="3" strokeWidth="1.5" className="fill-muted stroke-border" />
 
-      {/* Modules, bottom first so each one overlaps the top face of the one below */}
       {[...MODULE_Y].reverse().map((y) => {
         const row = MODULE_Y.indexOf(y);
         return (
@@ -72,7 +68,6 @@ export function BatteryStack({ className }: { className?: string }) {
               />
             ))}
 
-            {/* Display: state-of-charge bars + run LED */}
             <rect x="82" y={y + 9} width="86" height="16" rx="4" fill="#0b1322" />
             {Array.from({ length: SOC_BARS }, (_, i) => (
               <g key={i}>
@@ -101,7 +96,6 @@ export function BatteryStack({ className }: { className?: string }) {
               LiFePO₄ · 51.2V
             </text>
 
-            {/* Power button + DC terminals */}
             <circle cx="180" cy={y + 17} r="6" strokeWidth="1.5" className="fill-muted stroke-foreground/25" />
             <path
               d={`M178 ${y + 15}a3 3 0 1 0 4 0M180 ${y + 13}v3.5`}
@@ -115,7 +109,6 @@ export function BatteryStack({ className }: { className?: string }) {
         );
       })}
 
-      {/* Parallel links between modules */}
       {MODULE_Y.slice(0, -1).map((y, i) => {
         const [y1, y2] = [y + 36, MODULE_Y[i + 1] + 36];
         return (

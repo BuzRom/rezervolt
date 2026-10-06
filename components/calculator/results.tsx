@@ -5,10 +5,6 @@ import { Clock, type LucideIcon } from "lucide-react";
 import { VAT_RATE, type CostEstimate } from "@/lib/calculator";
 import { useFormat } from "./format";
 
-/**
- * Two columns on desktop (inputs + details left, results right); on mobile the results come
- * right after the inputs, so moving a slider shows its effect without scrolling past the details.
- */
 export function ModeLayout({
   inputs,
   results,
@@ -29,7 +25,6 @@ export function ModeLayout({
 
 export type MetricItem = { icon: LucideIcon; label: string; value: string; hint?: string };
 
-/** Paybacks beyond this are shown as "over 25 years" (the panels' warranty horizon). */
 const MAX_PAYBACK = 25;
 
 export function Results({
@@ -144,7 +139,6 @@ function CostBreakdown({ cost }: { cost: CostEstimate }) {
   );
 }
 
-/** "What the estimate assumes" — keeps the heuristics in `lib/calculator.ts` transparent. */
 export function Assumptions({ items }: { items: string[] }) {
   const t = useTranslations("Calculator.assumptions");
 

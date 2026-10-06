@@ -1,4 +1,3 @@
-/** Pure-CSS solar panel — used as a fallback (mobile / reduced-motion / 3D loading). */
 export function PanelPoster() {
   return (
     <div className="absolute inset-0 grid place-items-center overflow-hidden">

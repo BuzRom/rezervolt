@@ -3,7 +3,6 @@ import { useSvgId } from "./parts";
 
 type Pt = readonly [number, number];
 
-/** Projective map of the unit square onto a quad (TL, TR, BR, BL) — real perspective in plain SVG. */
 function quadMap([x0, y0]: Pt, [x1, y1]: Pt, [x2, y2]: Pt, [x3, y3]: Pt) {
   const sx = x0 - x1 + x2 - x3;
   const sy = y0 - y1 + y2 - y3;
@@ -21,14 +20,13 @@ function quadMap([x0, y0]: Pt, [x1, y1]: Pt, [x2, y2]: Pt, [x3, y3]: Pt) {
 
 const fmt = ([x, y]: Pt) => `${x.toFixed(1)} ${y.toFixed(1)}`;
 
-// A row of three portrait modules on a sloped roof, seen from below.
 const ARRAY = quadMap([178, 70], [498, 70], [592, 244], [48, 244]);
 const MODULES = 3;
-const GAP = 0.016; // between modules, in array units
+const GAP = 0.016;
 const FRAME_U = 0.012;
 const FRAME_V = 0.024;
 const COLS = 6;
-const ROWS = 20; // half-cut cells: two blocks of 10 rows
+const ROWS = 20;
 
 const quad = (u0: number, v0: number, u1: number, v1: number) =>
   `M${fmt(ARRAY(u0, v0))}L${fmt(ARRAY(u1, v0))}L${fmt(ARRAY(u1, v1))}L${fmt(ARRAY(u0, v1))}Z`;
@@ -56,19 +54,16 @@ const modules = Array.from({ length: MODULES }, (_, i) => {
     glass: quad(cu0, cv0, cu1, cv1),
     grid,
     split: `M${fmt(ARRAY(cu0, v(0.5)))}L${fmt(ARRAY(cu1, v(0.5)))}`,
-    // Front edge of the frame — sells the module's thickness.
     edge: `M${fmt(bl)}L${fmt(br)}L${fmt([br[0], br[1] + 7])}L${fmt([bl[0], bl[1] + 7])}Z`,
   };
 });
 
 const GLASS = modules.map((m) => m.glass).join("");
 
-/** Solar modules in perspective; once powered the sun brightens and a glare sweeps the glass. */
 export function SolarArray({ className }: { className?: string }) {
   const id = useSvgId();
 
   return (
-    // Visible overflow lets the sun's halo spill into the card padding instead of being cut.
     <svg viewBox="0 0 640 300" fill="none" aria-hidden className={cn("overflow-visible", className)}>
       <defs>
         <radialGradient id={`${id}-sun`}>
@@ -105,7 +100,6 @@ export function SolarArray({ className }: { className?: string }) {
         </clipPath>
       </defs>
 
-      {/* Sun */}
       <circle
         cx="580"
         cy="66"
@@ -134,7 +128,6 @@ export function SolarArray({ className }: { className?: string }) {
           fill={`url(#${id}-sunlit)`}
           className="opacity-0 transition-opacity duration-1000 powered:opacity-100"
         />
-        {/* Drawn off-canvas on the left; the animation sweeps it across. */}
         <path
           d="M-130 30H-40L-150 290H-240Z"
           fill={`url(#${id}-glare)`}

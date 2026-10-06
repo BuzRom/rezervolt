@@ -50,7 +50,6 @@ export function Testimonials() {
         </Container>
       ) : (
         <div className="group relative mt-14 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-          {/* Single track of two identical halves → translateX(-50%) loops seamlessly. */}
           <div
             className={cn(
               "flex w-max gap-6 pr-6 animate-marquee group-hover:[animation-play-state:paused]",

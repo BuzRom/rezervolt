@@ -10,11 +10,9 @@ type RevealProps = {
   className?: string;
   delay?: number;
   y?: number;
-  /** Stagger direct children instead of animating the wrapper itself. */
   stagger?: number;
 };
 
-/** Fades/slides content in when it scrolls into view (no-op for reduced motion). */
 export function Reveal({
   children,
   className,
@@ -58,8 +56,6 @@ export function Reveal({
     <div
       ref={ref}
       className={cn(className)}
-      // Hide the wrapper from the first paint only when we animate it directly.
-      // For staggered children, gsap's layout-effect sets their initial state.
       {...(stagger ? {} : { "data-anim": "hidden" })}
     >
       {children}

@@ -3,7 +3,6 @@
 import { useMemo } from "react";
 import { useLocale } from "next-intl";
 
-/** Locale-aware number / money / date formatters for the calculator. */
 export function useFormat() {
   const locale = useLocale();
 
@@ -31,15 +30,10 @@ export function useFormat() {
     );
 
     return {
-      /** Plain number, up to one decimal (kW, kWh). */
       number: (value: number) => decimal.format(value),
-      /** Two decimals, no currency (₴/kWh prices where the unit is shown elsewhere). */
       decimal2: (value: number) => decimal2.format(value),
-      /** Whole hryvnias: "1 234 567 ₴" / "₴1,234,567". */
       uah: (value: number) => uah.format(Math.round(value)),
-      /** Price per kWh, two decimals. */
       price: (value: number) => uahPrice.format(value),
-      /** ISO `YYYY-MM-DD` date. */
       date: (iso: string) => date.format(new Date(`${iso}T00:00:00Z`)),
     };
   }, [locale]);

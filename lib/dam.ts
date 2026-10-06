@@ -1,32 +1,19 @@
-/**
- * Day-ahead market (РДН) prices from АТ «Оператор ринку» (oree.com.ua) and the battery-arbitrage
- * math on top of them: a battery charges from the grid in the cheapest hours and covers the
- * site's load in the most expensive ones.
- *
- * Runtime-import-free on purpose: `scripts/update-dam-snapshot.mjs` loads it with plain Node.
- */
-
 export const DAM_SOURCE_URL = "https://www.oree.com.ua/index.php/pricectr";
 
-/** The "Hourly purchase/sale prices" page posts here; one call returns a whole month. */
 const ENDPOINT = "https://www.oree.com.ua/index.php/pricectr/data_view";
 
 export type Cycles = 1 | 2;
 export type DamPeriod = "month" | "year";
 
 export type DamDay = {
-  /** ISO date, `YYYY-MM-DD`. */
   date: string;
-  /** ₴/kWh ex VAT, one per delivery hour (23 or 25 on DST-change days). */
   prices: number[];
 };
 
 export type Battery = { durationHours: number; efficiency: number; gridFee: number };
 
 export type Arbitrage = {
-  /** Net income per 1 kWh of usable capacity per year, ₴ ex VAT. */
   perKwhYear: number;
-  /** Average DAM price of the charged / discharged energy, ₴/kWh ex VAT. */
   chargePrice: number;
   dischargePrice: number;
 };
@@ -35,9 +22,7 @@ export type DamWindow = {
   from: string;
   to: string;
   days: number;
-  /** Average price per hour of the day (0 = 00:00–01:00), ₴/kWh ex VAT. */
   profile: number[];
-  /** The plan for the average day, per hour: 1 charge, -1 discharge, 0 idle. */
   schedule: Record<Cycles, number[]>;
   arbitrage: Record<Cycles, Arbitrage>;
 };
@@ -48,14 +33,8 @@ export type DamStats = {
   windows: Record<DamPeriod, DamWindow>;
 };
 
-// --------------------------------------------------------------------------------------------
-//  Fetching
-// --------------------------------------------------------------------------------------------
-
-/** Extra `fetch` options, e.g. Next's `{ next: { revalidate } }`. */
 type FetchInit = RequestInit & { next?: { revalidate?: number | false; tags?: string[] } };
 
-/** Parses the month table: a date cell followed by hourly prices in ₴/MWh. */
 export function parseMonth(html: string): DamDay[] {
   const body = html.indexOf("<tbody");
   if (body < 0) return [];
@@ -93,7 +72,6 @@ async function fetchMonth(month: string, init?: FetchInit): Promise<DamDay[]> {
   return parseMonth(content ?? "");
 }
 
-/** Hourly prices for the last ~13 months (the current one included), oldest first. */
 export async function fetchDamDays(now: Date, init?: FetchInit): Promise<DamDay[]> {
   const months = Array.from({ length: 13 }, (_, i) => {
     const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1));
@@ -103,17 +81,6 @@ export async function fetchDamDays(now: Date, init?: FetchInit): Promise<DamDay[
   return results.flat().sort((a, b) => a.date.localeCompare(b.date));
 }
 
-// --------------------------------------------------------------------------------------------
-//  Arbitrage
-// --------------------------------------------------------------------------------------------
-
-/**
- * The most profitable charge/discharge plan for one day, for 1 kWh of usable capacity.
- * Dynamic programming over (state of charge, discharged hours): the battery starts empty, moves
- * at full power (1 / durationHours of capacity per hour) and makes at most `cycles` full cycles.
- * Charged energy is bought at `price + gridFee`; discharged energy (minus losses) replaces energy
- * the site would buy at that hour's `price + gridFee`.
- */
 export function planDay(prices: number[], battery: Battery, cycles: Cycles) {
   const levels = battery.durationHours;
   const maxOut = levels * cycles;
@@ -139,7 +106,7 @@ export function planDay(prices: number[], battery: Battery, cycles: Cycles) {
       for (let out = 0; out <= maxOut; out++) {
         const total = best[soc * width + out];
         if (total === -Infinity) continue;
-        relax(soc * width + out, total, 0); // idle first: wins ties
+        relax(soc * width + out, total, 0);
         if (soc < levels) relax((soc + 1) * width + out, total - value, 1);
         if (soc > 0 && out < maxOut) {
           relax((soc - 1) * width + out + 1, total + value * battery.efficiency, -1);
@@ -203,7 +170,6 @@ function windowStats(days: DamDay[], battery: Battery): DamWindow {
   const sums = new Array(24).fill(0);
   const counts = new Array(24).fill(0);
   for (const day of days) {
-    // DST days shift by an hour after 03:00 — negligible in an average.
     day.prices.slice(0, 24).forEach((price, hour) => {
       sums[hour] += price;
       counts[hour] += 1;
@@ -224,7 +190,6 @@ function windowStats(days: DamDay[], battery: Battery): DamWindow {
   };
 }
 
-/** Stats for the last 30 days and the last 365 days of the given (sorted) price history. */
 export function buildDamStats(
   days: DamDay[],
   battery: Battery,

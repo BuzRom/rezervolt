@@ -19,7 +19,6 @@ import { Switchgear } from "@/components/illustrations/switchgear";
 
 type Category = { tag: string; title: string; desc: string; specs: string[] };
 
-/** Illustration, bento width and the glow each card emits once powered. */
 const VISUALS: Record<
   EquipmentId,
   { Art: (props: { className?: string }) => React.ReactNode; wide?: boolean; glow: string }
@@ -30,14 +29,12 @@ const VISUALS: Record<
   protection: { Art: Switchgear, wide: true, glow: "bg-accent/15" },
 };
 
-// Logo tiles per row, by brand count (three → 2 + 1 full-width on phones).
 const LOGO_GRID: Record<number, string> = {
   1: "grid-cols-1",
   2: "grid-cols-2",
   3: "grid-cols-2 sm:grid-cols-3 [&>li:last-child]:col-span-2 sm:[&>li:last-child]:col-span-1",
 };
 
-/** Wide wordmarks get shorter so every logo carries a similar visual weight. */
 function logoSize({ width, height, scale = 1 }: Brand["logo"]) {
   const h = Math.round(Math.min(32, 50 / Math.sqrt(width / height)) * scale);
   return { width: Math.round((h * width) / height), height: h };
@@ -48,8 +45,6 @@ export function Equipment() {
   const root = useRef<HTMLElement>(null);
   const reduced = usePrefersReducedMotion();
 
-  // Each card "powers on" (illustration comes alive, logos get their colors) every time it
-  // scrolls into view, and powers off once it leaves — so the show replays in both directions.
   useGSAP(
     () => {
       const cards = gsap.utils.toArray<HTMLElement>("[data-equip]");
@@ -72,7 +67,6 @@ export function Equipment() {
               card.removeAttribute("data-powered");
               return;
             }
-            // Cards further right in a row follow a beat later: sun → inverter → storage → board.
             const delay = card.offsetLeft > cards[0].offsetLeft ? 0.35 : 0;
             pending = gsap.delayedCall(delay, powerOn, [card]);
           },

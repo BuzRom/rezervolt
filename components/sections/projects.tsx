@@ -14,7 +14,6 @@ type Project = {
   desc: string;
 };
 
-// Subtle distinct gradients so the placeholder visuals feel intentional.
 const GRADIENTS = [
   "from-amber-500/30 via-orange-500/20 to-rose-500/10",
   "from-sky-500/30 via-cyan-500/20 to-emerald-500/10",

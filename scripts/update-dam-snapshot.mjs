@@ -1,11 +1,3 @@
-/**
- * Refreshes `lib/dam-snapshot.json` — the DAM statistics the calculator falls back to when
- * oree.com.ua can't be reached (e.g. a build without network access).
- *
- *   npm run dam:snapshot
- *
- * Imports the TypeScript sources directly (Node ≥ 22.18 strips types natively).
- */
 import { writeFile } from "node:fs/promises";
 import { buildDamStats, fetchDamDays } from "../lib/dam.ts";
 import { storage } from "../lib/calculator.ts";

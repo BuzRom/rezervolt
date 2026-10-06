@@ -19,7 +19,6 @@ export function HeroScene({ dark }: { dark: boolean }) {
         distance={14}
       />
 
-      {/* The "sun" — a soft emissive glow behind the panel */}
       <Float speed={1.1} rotationIntensity={0.2} floatIntensity={0.5}>
         <mesh position={[1.7, 1.4, -2.5]}>
           <sphereGeometry args={[0.7, 32, 32]} />
@@ -40,7 +39,6 @@ export function HeroScene({ dark }: { dark: boolean }) {
         color={dark ? "#000000" : "#3a2a10"}
       />
 
-      {/* Procedural studio environment for glassy reflections (no external HDRI). */}
       <Environment resolution={256}>
         <Lightformer
           intensity={dark ? 1.4 : 2}

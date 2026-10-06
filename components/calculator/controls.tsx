@@ -3,7 +3,6 @@
 import { useId } from "react";
 import { cn } from "@/lib/utils";
 
-/** Range input over a list of "nice" values (log-like spacing: 200 … 100 000). */
 export function StepSlider({
   label,
   steps,
@@ -43,7 +42,6 @@ export function StepSlider({
   );
 }
 
-/** Pill-shaped radio group. */
 export function Segmented<T extends string | number>({
   label,
   options,
@@ -58,7 +56,6 @@ export function Segmented<T extends string | number>({
   value: T;
   onChange: (value: T) => void;
   hideLabel?: boolean;
-  /** Full width with equal options on small screens. */
   stretch?: boolean;
   className?: string;
 }) {

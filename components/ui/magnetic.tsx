@@ -5,7 +5,6 @@ import { gsap, useGSAP } from "@/lib/gsap";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { cn } from "@/lib/utils";
 
-/** Wraps an element so it subtly follows the cursor (premium hover feel). */
 export function Magnetic({
   children,
   className,

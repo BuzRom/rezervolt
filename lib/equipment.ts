@@ -1,17 +1,8 @@
-/**
- * Equipment brands for the "Equipment" section, grouped by their role in a solar system.
- * Logos live in `public/brands/` (official artwork from the manufacturers' websites; ABB and
- * JA Solar — from Wikimedia Commons). `width`/`height` are the files' intrinsic proportions.
- * Category copy (tag, title, description, specs) lives in `messages/*.json` → `Equipment.categories`.
- */
-
 export type EquipmentId = "panels" | "inverters" | "batteries" | "protection";
 
 export type Brand = {
   name: string;
-  /** `scale` nudges the optical size of unusually light (> 1) or heavy (< 1) marks. */
   logo: { src: string; width: number; height: number; scale?: number };
-  /** The logo's colors don't read on a dark background → show it white in dark mode. */
   invertOnDark?: boolean;
 };
 

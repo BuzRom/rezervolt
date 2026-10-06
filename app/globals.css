@@ -1,14 +1,9 @@
 @import "tailwindcss";
 
-/* next-themes toggles the `.dark` class on <html>. */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Equipment cards "power on" (a `data-powered` ancestor) while they're in view. */
 @custom-variant powered (&:where([data-powered] *));
 
-/* ------------------------------------------------------------------ */
-/*  Design tokens — semantic colors switch with the theme.             */
-/* ------------------------------------------------------------------ */
 :root {
   --background: #fbfaf6;
   --foreground: #191512;
@@ -22,9 +17,8 @@
   --primary-foreground: #1a1100;
   --accent: #0f9d8f;
   --ring: #f59e0b;
-  --glow: 245 158 11; /* rgb channels for shadow/glow usage */
-  --header-h: 4.5rem; /* fixed opaque header; pinned sections start below it */
-  /* Calculator DAM chart: battery charge / discharge hours (CVD-checked per theme). */
+  --glow: 245 158 11;
+  --header-h: 4.5rem;
   --chart-charge: #0d9488;
   --chart-discharge: #d9650b;
 }
@@ -63,7 +57,6 @@
   --color-chart-charge: var(--chart-charge);
   --color-chart-discharge: var(--chart-discharge);
 
-  /* Fixed brand scale (the "sun"). */
   --color-solar-300: #fcd34d;
   --color-solar-400: #fbbf24;
   --color-solar-500: #f59e0b;
@@ -103,7 +96,6 @@
   from { background-position: 200% 0; }
   to { background-position: -200% 0; }
 }
-/* Equipment illustrations (SVG user units): sun glare, energy flow, LEDs, charging. */
 @keyframes glare {
   0% { transform: translateX(0); }
   30%, 100% { transform: translateX(980px); }
@@ -118,22 +110,18 @@
   50% { opacity: 0.35; }
 }
 
-/* ------------------------------------------------------------------ */
-/*  Base layer                                                         */
-/* ------------------------------------------------------------------ */
 @layer base {
   * {
     border-color: var(--color-border);
   }
 
-  /* Tailwind v4's preflight dropped `cursor: pointer` on buttons — bring it back site-wide. */
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
 
   html {
-    scroll-behavior: auto; /* Lenis handles smooth scrolling */
+    scroll-behavior: auto;
     -webkit-text-size-adjust: 100%;
   }
 
@@ -161,7 +149,6 @@
     letter-spacing: -0.02em;
   }
 
-  /* Custom scrollbar */
   ::-webkit-scrollbar { width: 10px; height: 10px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
@@ -170,9 +157,6 @@
   }
 }
 
-/* ------------------------------------------------------------------ */
-/*  Reusable utilities                                                 */
-/* ------------------------------------------------------------------ */
 @utility text-gradient {
   background-image: linear-gradient(
     100deg,
@@ -198,7 +182,6 @@
   -webkit-backdrop-filter: blur(14px);
 }
 
-/* Lenis smooth scroll */
 html.lenis,
 html.lenis body {
   height: auto;
@@ -210,8 +193,6 @@ html.lenis body {
   overflow: hidden;
 }
 
-/* Equipment brand logos: flat silhouettes until their card powers on, then real brand colors.
-   `data-invert-dark` marks logos whose colors don't read on dark → white in dark mode. */
 @layer components {
   .brand-logo {
     filter: brightness(0);
@@ -230,14 +211,10 @@ html.lenis body {
   }
 }
 
-/* Prevent a flash of un-styled animated content before GSAP runs */
 [data-anim="hidden"] {
   opacity: 0;
 }
 
-/* ------------------------------------------------------------------ */
-/*  Reduced motion — disable heavy animation, keep content visible.    */
-/* ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

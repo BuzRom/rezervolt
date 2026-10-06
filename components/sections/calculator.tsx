@@ -4,7 +4,6 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { CalculatorPanel } from "@/components/calculator/calculator-panel";
 import { getDamStats } from "@/lib/dam-data";
 
-/** Payback calculator: math in `lib/calculator.ts`, DAM prices from `lib/dam-data.ts`. */
 export async function Calculator() {
   const [t, dam] = await Promise.all([getTranslations("Calculator"), getDamStats()]);
 

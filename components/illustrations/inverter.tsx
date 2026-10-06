@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Depth, useSvgId } from "./parts";
 
-// Cables leaving the bottom glands: PV strings flow in (up), battery and AC flow out (down).
 const CABLES = [
   { d: "M124 206C124 242 106 258 100 300", color: "#fbbf24", up: true },
   { d: "M142 206C142 246 132 264 130 300", color: "#fbbf24", up: true },
@@ -16,7 +15,6 @@ const LEDS = [
   { cy: 86, color: "#2dd4bf", blink: false },
 ];
 
-/** Wall-mounted hybrid inverter; once powered its screen, LEDs and cable flows come alive. */
 export function Inverter({ className }: { className?: string }) {
   const id = useSvgId();
 
@@ -64,7 +62,6 @@ export function Inverter({ className }: { className?: string }) {
         </g>
       ))}
 
-      {/* Wall shadow + housing */}
       <rect
         x="106"
         y="42"
@@ -87,7 +84,6 @@ export function Inverter({ className }: { className?: string }) {
         className="stroke-border"
       />
 
-      {/* Glass front: screen, status LEDs, buttons */}
       <rect x="110" y="42" width="100" height="80" rx="8" fill="#0b1322" stroke="#1c2638" />
       <rect x="120" y="52" width="58" height="40" rx="4" fill="#0f1727" />
       <g className="opacity-0 transition-opacity delay-200 duration-700 powered:opacity-100">
@@ -141,7 +137,6 @@ export function Inverter({ className }: { className?: string }) {
         <rect key={x} x={x} y="104" width="10" height="5" rx="2.5" fill="#1c2638" />
       ))}
 
-      {/* Status light bar */}
       <rect x="128" y="134" width="64" height="4" rx="2" className="fill-border" />
       <g className="opacity-0 transition-opacity delay-500 duration-700 powered:opacity-100">
         <rect
@@ -157,7 +152,6 @@ export function Inverter({ className }: { className?: string }) {
         <rect x="128" y="134" width="64" height="4" rx="2" fill={`url(#${id}-bar)`} />
       </g>
 
-      {/* Vent grille */}
       {[152, 160, 168, 176].map((y) => (
         <path
           key={y}
@@ -168,7 +162,6 @@ export function Inverter({ className }: { className?: string }) {
         />
       ))}
 
-      {/* Connection panel with cable glands */}
       <rect x="110" y="190" width="100" height="18" rx="5" className="fill-muted stroke-border" />
       {[124, 142, 160, 178, 196].map((cx) => (
         <circle key={cx} cx={cx} cy="199" r="5" fill="#1b2436" stroke="#2c3649" />

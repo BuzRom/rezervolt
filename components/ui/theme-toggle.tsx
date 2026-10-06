@@ -11,8 +11,6 @@ export function ThemeToggle({ className }: { className?: string }) {
   const t = useTranslations("Theme");
   const mounted = useMounted();
 
-  // Gate on `mounted`: on the server / first render the theme is unknown, so
-  // both the label and the icons must match what the server emitted.
   const isDark = mounted && resolvedTheme === "dark";
 
   return (
@@ -25,7 +23,6 @@ export function ThemeToggle({ className }: { className?: string }) {
         className,
       )}
     >
-      {/* Render nothing theme-specific until mounted to avoid hydration mismatch. */}
       <Sun
         className={cn(
           "absolute h-[18px] w-[18px] transition-all duration-500",

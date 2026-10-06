@@ -23,7 +23,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Lock body scroll while the mobile menu is open.
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -39,10 +38,8 @@ export function Navbar() {
         scrolled && "shadow-soft",
       )}
     >
-      {/* Above the mobile menu overlay, so the close button stays visible. */}
       <div className="relative z-50 mx-auto h-full w-full max-w-7xl px-5 py-3 sm:px-8 lg:px-12">
         <nav className="flex h-full items-center justify-between gap-4">
-          {/* Block-level flex: an inline link adds a line-box gap under the logo, lifting it off-center. */}
           <a href="#top" aria-label={site.name} className="flex shrink-0 items-center">
             <Logo />
           </a>
@@ -84,7 +81,6 @@ export function Navbar() {
         </nav>
       </div>
 
-      {/* Mobile menu */}
       <div
         className={cn(
           "fixed inset-0 top-0 z-40 origin-top bg-background/95 backdrop-blur-xl transition-all duration-300 lg:hidden",

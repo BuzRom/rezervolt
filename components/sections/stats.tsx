@@ -52,8 +52,6 @@ export function Stats() {
               className="flex flex-col items-center justify-center bg-card/60 px-4 py-10 text-center"
             >
               <div className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
-                {/* The hidden final value reserves the counter's width, so counting up from 0
-                    can't re-wrap the line (e.g. "24 МВт" on phones) and shift the page mid-scroll. */}
                 <span className="inline-grid tabular-nums">
                   <span aria-hidden className="invisible col-start-1 row-start-1">
                     {stat.value}

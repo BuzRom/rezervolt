@@ -16,14 +16,12 @@ const actionOf = (value: number) => ACTIONS[value as keyof typeof ACTIONS] ?? AC
 const hourRange = (hour: number) =>
   `${String(hour).padStart(2, "0")}:00–${String(hour + 1).padStart(2, "0")}:00`;
 
-/** Clean y-axis: steps of 1 / 2 / 5 ₴ up to the first tick above the peak. */
 function axisTicks(max: number) {
   const step = max > 10 ? 5 : max > 4 ? 2 : 1;
   const top = Math.max(step, Math.ceil(max / step) * step);
   return Array.from({ length: top / step + 1 }, (_, i) => i * step);
 }
 
-/** Average DAM price for each hour of the day; bars are colored by the battery's plan. */
 export function DamChart({ profile, schedule }: { profile: number[]; schedule: number[] }) {
   const t = useTranslations("Calculator.storage");
   const fmt = useFormat();

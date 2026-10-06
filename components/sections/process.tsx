@@ -27,7 +27,7 @@ const ICONS: LucideIcon[] = [
   LineChart,
 ];
 
-const CELL_COUNT = 48; // 6 x 8
+const CELL_COUNT = 48;
 
 export function Process() {
   const t = useTranslations("Process");
@@ -62,13 +62,10 @@ export function Process() {
 
         const st = ScrollTrigger.create({
           trigger: pin,
-          // Pin right under the fixed header; the pinned frame is exactly the space below it.
           start: () => `top top+=${headerHeight()}`,
           end: `+=${total * 28}%`,
           pin: true,
           scrub: 0.3,
-          // No `anticipatePin`: Lenis scrolls from JS in sync with ScrollTrigger, so pinning is
-          // never late — anticipating only pins early on fast scrolls (a visible jump).
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const idx = Math.min(total - 1, Math.floor(self.progress * total));
@@ -99,7 +96,6 @@ export function Process() {
         />
       </Container>
 
-      {/* Desktop: pinned, scroll-synced assembly (frame = viewport minus the header) */}
       <div className="mt-6 hidden lg:block">
         <div
           data-pin
@@ -107,7 +103,6 @@ export function Process() {
         >
           <Container>
             <div className="grid grid-cols-2 items-center gap-14">
-              {/* Visual */}
               <div className="relative flex items-center justify-center">
                 <div
                   data-bignum
@@ -149,7 +144,6 @@ export function Process() {
                 </div>
               </div>
 
-              {/* Steps */}
               <div className="space-y-2.5">
                 {steps.map((step, i) => (
                   <div
@@ -164,8 +158,6 @@ export function Process() {
                       </span>
                       <div>
                         <h3 className="text-base font-semibold">{step.title}</h3>
-                        {/* Short screens: only the active step shows its description, so all
-                            six fit in the pinned frame. */}
                         <p className="mt-1 text-sm leading-snug text-muted-foreground [@media(max-height:820px)]:hidden [@media(max-height:820px)]:group-data-[active=true]/step:block">
                           {step.desc}
                         </p>
@@ -179,14 +171,11 @@ export function Process() {
         </div>
       </div>
 
-      {/* Mobile: plain vertical timeline */}
       <Container className="mt-12 lg:hidden">
         <ol className="space-y-6">
           {steps.map((step, i) => {
             const Icon = ICONS[i % ICONS.length];
             return (
-              // The connector runs from under this icon to the top of the next one, centered on
-              // the icons (left 18px of a 36px circle) and never crossing them.
               <li
                 key={i}
                 className="relative pl-14 after:absolute after:-bottom-9 after:left-[17.5px] after:top-12 after:w-px after:bg-gradient-to-b after:from-solar-500/50 after:to-border last:after:hidden"

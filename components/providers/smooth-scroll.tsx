@@ -5,16 +5,9 @@ import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
-/**
- * Lenis smooth scrolling, driven by GSAP's ticker and synced with ScrollTrigger.
- * Disabled entirely when the user prefers reduced motion.
- */
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const reduced = usePrefersReducedMotion();
 
-  // ScrollTrigger measures start/end positions once; when content above a pinned section changes
-  // height (calculator mode switch, late fonts/images) those go stale and the pin jumps.
-  // Re-measure whenever the page height changes.
   useEffect(() => {
     let height = document.body.scrollHeight;
     let timer: ReturnType<typeof setTimeout> | undefined;
@@ -48,10 +41,6 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
-    // Anchor links scroll smoothly through Lenis, with no header offset: every section's top
-    // padding is taller than the header, so the section's edge goes to the viewport top and the
-    // header just covers part of that padding. (Offsetting by the header would leave a
-    // header-high empty band above the heading.)
     const onClick = (e: MouseEvent) => {
       const anchor = (e.target as HTMLElement)?.closest?.(
         'a[href^="#"]',

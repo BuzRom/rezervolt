@@ -3,7 +3,6 @@ import { Depth, useSvgId } from "./parts";
 
 type Kind = "main" | "rcd" | "mcb" | "spd" | "fuse" | "isolator";
 
-// One DIN module = 26 units. Left → right: AC side, surge protection, DC (PV) side.
 const DEVICES: { kind: Kind; x: number; poles: number; label?: string }[] = [
   { kind: "main", x: 74, poles: 2, label: "100A" },
   { kind: "rcd", x: 128, poles: 2, label: "30mA" },
@@ -22,9 +21,8 @@ const DEVICES: { kind: Kind; x: number; poles: number; label?: string }[] = [
 const TOP = 86;
 const HEIGHT = 128;
 const POLE = 26;
-const STAGGER = 110; // ms between devices switching on
+const STAGGER = 110;
 
-// Feeds entering from the top: AC into the main switch, PV strings into the DC isolator.
 const FEEDS = [
   { d: "M87 98V40", color: "#2dd4bf" },
   { d: "M113 98V40", color: "#2dd4bf" },
@@ -44,7 +42,6 @@ function Terminals({ x, poles }: { x: number; poles: number }) {
   });
 }
 
-/** Toggle lever: rests down (off) and flips up when the card powers on. */
 function Lever({ cx, width, order, accent }: { cx: number; width: number; order: number; accent?: boolean }) {
   return (
     <>
@@ -66,7 +63,6 @@ function Lever({ cx, width, order, accent }: { cx: number; width: number; order:
   );
 }
 
-/** Status window: grey when off, green once the device is on. */
 function Indicator({ x, y, order }: { x: number; y: number; order: number }) {
   return (
     <>
@@ -85,7 +81,6 @@ function Indicator({ x, y, order }: { x: number; y: number; order: number }) {
   );
 }
 
-/** Distribution board: AC protection, surge arrester and the PV-side DC isolator on a DIN rail. */
 export function Switchgear({ className }: { className?: string }) {
   const id = useSvgId();
 
@@ -113,19 +108,16 @@ export function Switchgear({ className }: { className?: string }) {
         </filter>
       </defs>
 
-      {/* Enclosure */}
       <ellipse cx="324" cy="280" rx="280" ry="10" fill="#000" opacity="0.22" filter={`url(#${id}-shadow)`} />
       <Depth x={36} y={26} width={568} height={248} rx={20} dx={10} dy={-8} fill={`url(#${id}-depth)`} />
       <rect x="36" y="26" width="568" height="248" rx="20" fill={`url(#${id}-box)`} strokeWidth="1.5" className="stroke-border" />
       <rect x="50" y="40" width="540" height="220" rx="12" strokeWidth="1.2" className="fill-background/50 stroke-border" />
 
-      {/* DIN rail */}
       <rect x="62" y="142" width="516" height="16" rx="2" fill={`url(#${id}-rail)`} opacity="0.75" />
       {Array.from({ length: 21 }, (_, i) => (
         <rect key={i} x={68 + i * 24.6} y="148" width="12" height="4" rx="2" fill="#475569" opacity="0.5" />
       ))}
 
-      {/* Feeds (behind the devices, so they disappear into the terminals) */}
       {FEEDS.map((f) => (
         <g key={f.d}>
           <path d={f.d} strokeWidth="5" strokeLinecap="round" className="stroke-foreground/15" />

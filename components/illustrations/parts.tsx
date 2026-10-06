@@ -1,15 +1,9 @@
 import { useId } from "react";
 
-/** url()-safe id prefix for gradients/filters — several illustrations share one page. */
 export function useSvgId() {
   return useId().replace(/[^\w-]/g, "");
 }
 
-/**
- * Fakes the depth of a front-facing box: copies of its outline stacked back along (dx, dy),
- * one user unit apart, so the visible top/side read as a solid extruded body.
- * Draw the front face on top of it.
- */
 export function Depth({
   x,
   y,

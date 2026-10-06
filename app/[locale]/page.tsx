@@ -17,7 +17,6 @@ import { Testimonials } from "@/components/sections/testimonials";
 import { Faq } from "@/components/sections/faq";
 import { Contact } from "@/components/sections/contact";
 
-// Re-render twice a day to pick up fresh day-ahead market prices for the calculator.
 export const revalidate = 43200;
 
 export default async function Home({
