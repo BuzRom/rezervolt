@@ -14,7 +14,7 @@ export function HeroPoster({ className }: { className?: string }) {
         alt=""
         fill
         sizes={sizes}
-        fetchPriority="high"
+        preload
         className="hidden object-contain dark:block"
       />
       <Image
