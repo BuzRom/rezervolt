@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Unbounded } from "next/font/google";
+import localFont from "next/font/local";
 import { redirect } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
@@ -20,6 +21,26 @@ const unbounded = Unbounded({
   variable: "--font-display",
   weight: ["500", "600", "700", "800"],
   display: "swap",
+});
+
+const hryvniaSans = localFont({
+  src: "../../assets/fonts/Inter-Hryvnia.woff2",
+  variable: "--font-hryvnia-sans",
+  weight: "100 900",
+  display: "swap",
+  preload: false,
+  adjustFontFallback: false,
+  declarations: [{ prop: "unicode-range", value: "U+20B4" }],
+});
+
+const hryvniaDisplay = localFont({
+  src: "../../assets/fonts/Unbounded-Hryvnia.woff2",
+  variable: "--font-hryvnia-display",
+  weight: "200 900",
+  display: "swap",
+  preload: false,
+  adjustFontFallback: false,
+  declarations: [{ prop: "unicode-range", value: "U+20B4" }],
 });
 
 export function generateStaticParams() {
@@ -76,7 +97,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       suppressHydrationWarning
-      className={`${inter.variable} ${unbounded.variable}`}
+      className={`${inter.variable} ${unbounded.variable} ${hryvniaSans.variable} ${hryvniaDisplay.variable}`}
     >
       <body className="min-h-dvh bg-background text-foreground antialiased">
         <noscript

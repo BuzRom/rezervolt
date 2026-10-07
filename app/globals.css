@@ -66,8 +66,8 @@
   --color-solar-700: #b04f09;
   --color-energy: #2dd4bf;
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-hryvnia-sans), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-hryvnia-display), var(--font-display), ui-sans-serif, system-ui, sans-serif;
 
   --radius-lg: 0.85rem;
   --radius-xl: 1.15rem;
@@ -217,6 +217,11 @@ html.lenis body {
     transform: translateY(var(--hero-y, 20px));
   }
 }
+@keyframes hero-slide {
+  from {
+    transform: translateY(var(--hero-y, 20px));
+  }
+}
 @keyframes hero-line {
   from {
     transform: translateY(115%);
@@ -226,43 +231,46 @@ html.lenis body {
 @media (prefers-reduced-motion: no-preference) {
   :where([data-hero]:not([data-hero="canvas"], [data-hero="trust"])),
   :where([data-hero="trust"] > *) {
-    animation: hero-rise 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+    animation: hero-rise 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) both;
   }
   [data-hero="badge"] {
-    --hero-y: 18px;
+    --hero-y: 14px;
+    animation-name: hero-slide;
   }
   [data-hero="line"] {
     animation-name: hero-line;
-    animation-duration: 0.9s;
-    animation-delay: 0.4s;
+    animation-duration: 0.75s;
+    animation-delay: 0.05s;
   }
   h1 > :nth-child(2) > [data-hero="line"] {
-    animation-delay: 0.52s;
+    animation-delay: 0.13s;
   }
   h1 > :nth-child(3) > [data-hero="line"] {
-    animation-delay: 0.64s;
+    animation-delay: 0.21s;
   }
   [data-hero="sub"] {
-    animation-duration: 0.7s;
-    animation-delay: 1.04s;
+    --hero-y: 16px;
+    animation-name: hero-slide;
+    animation-duration: 0.6s;
+    animation-delay: 0.15s;
   }
   [data-hero="cta"] {
-    animation-delay: 1.34s;
+    animation-delay: 0.4s;
   }
   [data-hero="trust"] > * {
     --hero-y: 16px;
-    animation-duration: 0.5s;
-    animation-delay: 1.64s;
+    animation-duration: 0.45s;
+    animation-delay: 0.55s;
   }
   [data-hero="trust"] > :nth-child(2) {
-    animation-delay: 1.74s;
+    animation-delay: 0.63s;
   }
   [data-hero="trust"] > :nth-child(3) {
-    animation-delay: 1.84s;
+    animation-delay: 0.71s;
   }
   [data-hero="hint"] {
     --hero-y: 0px;
-    animation-delay: 2.14s;
+    animation-delay: 0.9s;
   }
 }
 
