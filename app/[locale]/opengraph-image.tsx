@@ -4,7 +4,15 @@ import { ImageResponse } from "next/og";
 import { routing, type Locale } from "@/i18n/routing";
 import { site } from "@/lib/site";
 
-const size = { width: 1200, height: 630 };
+export const alt = site.name;
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 const COLS = 6;
 const ROWS = 8;
@@ -13,11 +21,6 @@ const LIT_ROWS = 3;
 async function messages(locale: string) {
   const known = routing.locales.includes(locale as Locale) ? locale : routing.defaultLocale;
   return (await import(`@/messages/${known}.json`)).default;
-}
-
-export async function generateImageMetadata({ params }: { params: { locale: string } }) {
-  const { Meta } = await messages(params.locale);
-  return [{ id: "og", alt: Meta.title, size, contentType: "image/png" }];
 }
 
 function Sun({ px }: { px: number }) {
