@@ -17,7 +17,7 @@ const unbounded = Unbounded({
 });
 
 export const metadata: Metadata = {
-  title: "404 — REZERVOLT",
+  title: "404 — Rezervolt",
 };
 
 export default function GlobalNotFound() {

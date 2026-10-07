@@ -1,6 +1,6 @@
 {
   "Meta": {
-    "title": "REZERVOLT — Turnkey Solar Power Systems",
+    "title": "Rezervolt — Turnkey Solar Power Systems",
     "description": "Design, installation and maintenance of solar power systems of any complexity — from residential rooftops to industrial plants. Full turnkey cycle."
   },
   "Nav": {
@@ -114,7 +114,7 @@
     ]
   },
   "WhyUs": {
-    "eyebrow": "Why REZERVOLT",
+    "eyebrow": "Why <brand>Rezervolt</brand>",
     "title": "Premium quality at every stage",
     "subtitle": "We own the result fully — from the design to the very last kilowatt.",
     "items": [
@@ -311,7 +311,7 @@
         "role": "Director, retail chain"
       },
       {
-        "quote": "A complex industrial site, but REZERVOLT's engineers calculated and approved everything. The plant has run reliably for two years.",
+        "quote": "A complex industrial site, but Rezervolt's engineers calculated and approved everything. The plant has run reliably for two years.",
         "name": "Serhii V.",
         "role": "Chief engineer, agri holding"
       }

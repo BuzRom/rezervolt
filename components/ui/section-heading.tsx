@@ -8,7 +8,7 @@ export function SectionHeading({
   align = "center",
   className,
 }: {
-  eyebrow?: string;
+  eyebrow?: React.ReactNode;
   title: React.ReactNode;
   subtitle?: string;
   align?: "center" | "left";

@@ -22,7 +22,9 @@ export function WhyUs() {
       />
       <Container className="relative">
         <SectionHeading
-          eyebrow={t("eyebrow")}
+          eyebrow={t.rich("eyebrow", {
+            brand: (chunks) => <span className="normal-case">{chunks}</span>,
+          })}
           title={t("title")}
           subtitle={t("subtitle")}
         />

@@ -1,5 +1,5 @@
 export const site = {
-  name: "REZERVOLT",
+  name: "Rezervolt",
   domain: "rezervolt.solar",
   email: "tion325@gmail.com",
   phone: "+38 (097) 929-27-96",
