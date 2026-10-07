@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Unbounded } from "next/font/google";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { routing, type Locale } from "@/i18n/routing";
@@ -66,7 +66,7 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   if (!routing.locales.includes(locale as Locale)) {
-    notFound();
+    redirect(`/${routing.defaultLocale}/${encodeURIComponent(locale)}`);
   }
   setRequestLocale(locale);
 
