@@ -26,6 +26,8 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+export const dynamicParams = false;
+
 export async function generateMetadata({
   params,
 }: {
@@ -77,6 +79,11 @@ export default async function LocaleLayout({
       className={`${inter.variable} ${unbounded.variable}`}
     >
       <body className="min-h-dvh bg-background text-foreground antialiased">
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html: '<style>[data-anim="hidden"]{opacity:1!important;transform:none!important}</style>',
+          }}
+        />
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <SmoothScroll>{children}</SmoothScroll>

@@ -31,14 +31,13 @@ export default async function Home({
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "Organization",
     name: site.name,
     description: t("description"),
     url: siteUrl,
     email: site.email,
     telephone: site.phone,
     areaServed: "UA",
-    priceRange: "$$",
   };
 
   return (

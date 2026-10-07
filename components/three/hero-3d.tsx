@@ -5,7 +5,7 @@ import { Component, useEffect, useState, type ReactNode } from "react";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
-import { PanelPoster } from "./panel-poster";
+import { HeroPoster } from "./hero-poster";
 
 const HeroCanvas = dynamic(() => import("./hero-canvas"), { ssr: false });
 
@@ -53,15 +53,10 @@ export function Hero3D() {
 
   return (
     <>
-      <PanelPoster
-        className={cn(
-          "transition-[opacity,visibility] duration-700",
-          show3d && ready && "invisible opacity-0",
-        )}
-      />
+      <HeroPoster className={cn(show3d && ready && "invisible")} />
       {show3d && (
         <SceneBoundary>
-          <HeroCanvas onReady={setReady} />
+          <HeroCanvas visible={ready} onReady={setReady} />
         </SceneBoundary>
       )}
     </>

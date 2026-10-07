@@ -39,15 +39,35 @@ function KeepClock() {
   return null;
 }
 
-export default function HeroCanvas({ onReady }: { onReady: (ready: boolean) => void }) {
+function FirstFrames({ onPainted }: { onPainted: () => void }) {
+  const frames = useRef(0);
+
+  useFrame((state) => {
+    if (state.frameloop !== "always" || frames.current >= 2) return;
+    frames.current += 1;
+    if (frames.current === 2) onPainted();
+  });
+
+  return null;
+}
+
+export default function HeroCanvas({
+  visible,
+  onReady,
+}: {
+  visible: boolean;
+  onReady: (ready: boolean) => void;
+}) {
   const { resolvedTheme } = useTheme();
   const dark = resolvedTheme !== "light";
   const wrap = useRef<HTMLDivElement>(null);
   const [compiled, setCompiled] = useState(false);
+  const [painted, setPainted] = useState(false);
   const [lost, setLost] = useState(false);
   const [inView, setInView] = useState(true);
   const markCompiled = useCallback(() => setCompiled(true), []);
-  const live = compiled && !lost;
+  const markPainted = useCallback(() => setPainted(true), []);
+  const live = compiled && painted && !lost;
 
   useEffect(() => {
     const el = wrap.current;
@@ -66,15 +86,12 @@ export default function HeroCanvas({ onReady }: { onReady: (ready: boolean) => v
   return (
     <div
       ref={wrap}
-      className={cn(
-        "absolute inset-0 opacity-0 transition-opacity duration-700",
-        live && "opacity-100",
-      )}
+      className={cn("absolute inset-0", visible ? "opacity-100" : "opacity-0")}
     >
       <Canvas
         className="!absolute inset-0"
         dpr={[1, 2]}
-        frameloop={live && inView ? "always" : "never"}
+        frameloop={compiled && inView && !lost ? "always" : "never"}
         gl={{
           antialias: true,
           alpha: true,
@@ -90,6 +107,7 @@ export default function HeroCanvas({ onReady }: { onReady: (ready: boolean) => v
       >
         <HeroScene dark={dark} />
         <KeepClock />
+        <FirstFrames onPainted={markPainted} />
         <Precompile onDone={markCompiled} />
       </Canvas>
     </div>

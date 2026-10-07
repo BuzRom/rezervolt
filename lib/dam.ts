@@ -166,11 +166,28 @@ function arbitrage(days: DamDay[], battery: Battery, cycles: Cycles): Arbitrage 
   };
 }
 
+const DST_HOUR = 3;
+
+export function clockHours(prices: number[]): (number | undefined)[] {
+  if (prices.length === 23) {
+    return [...prices.slice(0, DST_HOUR), undefined, ...prices.slice(DST_HOUR)];
+  }
+  if (prices.length === 25) {
+    return [
+      ...prices.slice(0, DST_HOUR),
+      (prices[DST_HOUR] + prices[DST_HOUR + 1]) / 2,
+      ...prices.slice(DST_HOUR + 2),
+    ];
+  }
+  return prices.slice(0, 24);
+}
+
 function windowStats(days: DamDay[], battery: Battery): DamWindow {
   const sums = new Array(24).fill(0);
   const counts = new Array(24).fill(0);
   for (const day of days) {
-    day.prices.slice(0, 24).forEach((price, hour) => {
+    clockHours(day.prices).forEach((price, hour) => {
+      if (price === undefined) return;
       sums[hour] += price;
       counts[hour] += 1;
     });

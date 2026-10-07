@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { useFormat } from "./format";
@@ -26,6 +26,16 @@ export function DamChart({ profile, schedule }: { profile: number[]; schedule: n
   const t = useTranslations("Calculator.storage");
   const fmt = useFormat();
   const [active, setActive] = useState<number | null>(null);
+  const plot = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (active === null) return;
+    const onDown = (e: PointerEvent) => {
+      if (!plot.current?.contains(e.target as Node)) setActive(null);
+    };
+    document.addEventListener("pointerdown", onDown);
+    return () => document.removeEventListener("pointerdown", onDown);
+  }, [active]);
 
   const ticks = axisTicks(Math.max(...profile));
   const top = ticks[ticks.length - 1];
@@ -38,7 +48,11 @@ export function DamChart({ profile, schedule }: { profile: number[]; schedule: n
       </figcaption>
 
       <div aria-hidden className="mt-5">
-        <div className="relative h-40 pl-7" onPointerLeave={() => setActive(null)}>
+        <div
+          ref={plot}
+          className="relative h-40 pl-7"
+          onPointerLeave={(e) => e.pointerType === "mouse" && setActive(null)}
+        >
           {ticks.map((tick) => (
             <div
               key={tick}

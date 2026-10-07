@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Plus } from "lucide-react";
 import { Container } from "@/components/ui/container";
@@ -13,6 +13,7 @@ export function Faq() {
   const t = useTranslations("Faq");
   const items = t.raw("items") as QA[];
   const [open, setOpen] = useState<number | null>(0);
+  const baseId = useId();
 
   return (
     <section id="faq" className="relative py-24 sm:py-32">
@@ -22,6 +23,7 @@ export function Faq() {
         <div className="mt-12 space-y-3">
           {items.map((qa, i) => {
             const isOpen = open === i;
+            const panelId = `${baseId}-${i}`;
             return (
               <div
                 key={i}
@@ -33,6 +35,7 @@ export function Faq() {
                 <button
                   type="button"
                   aria-expanded={isOpen}
+                  aria-controls={panelId}
                   onClick={() => setOpen(isOpen ? null : i)}
                   className="flex w-full items-center justify-between gap-4 p-6 text-left"
                 >
@@ -45,6 +48,8 @@ export function Faq() {
                   />
                 </button>
                 <div
+                  id={panelId}
+                  inert={!isOpen}
                   className={cn(
                     "grid transition-all duration-300 ease-out",
                     isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",

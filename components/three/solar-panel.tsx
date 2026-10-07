@@ -85,7 +85,7 @@ export function SolarPanel(props: React.ComponentProps<"group">) {
   const fw = 0.07;
 
   return (
-    <group ref={group} {...props} scale={1.05}>
+    <group ref={group} rotation={[0.18, 0, 0]} {...props} scale={1.05}>
       <mesh castShadow>
         <boxGeometry args={[W, H, 0.05]} />
         <meshPhysicalMaterial

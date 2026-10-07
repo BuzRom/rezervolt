@@ -1,7 +1,42 @@
 "use client";
 
-import { Environment, Float, Lightformer, ContactShadows } from "@react-three/drei";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import { ContactShadows, Environment, Lightformer } from "@react-three/drei";
+import type { Group } from "three";
 import { SolarPanel } from "./solar-panel";
+
+function Drift({
+  speed,
+  rotationIntensity,
+  floatIntensity,
+  children,
+}: {
+  speed: number;
+  rotationIntensity: number;
+  floatIntensity: number;
+  children: React.ReactNode;
+}) {
+  const ref = useRef<Group>(null);
+
+  useFrame(({ clock }) => {
+    const g = ref.current;
+    if (!g) return;
+    const a = (clock.elapsedTime / 4) * speed;
+    g.rotation.set(
+      (Math.cos(a) / 8) * rotationIntensity,
+      (Math.sin(a) / 8) * rotationIntensity,
+      (Math.sin(a) / 20) * rotationIntensity,
+    );
+    g.position.y = (Math.sin(a) / 10) * floatIntensity;
+  });
+
+  return (
+    <group ref={ref} rotation={[rotationIntensity / 8, 0, 0]}>
+      {children}
+    </group>
+  );
+}
 
 export function HeroScene({ dark }: { dark: boolean }) {
   return (
@@ -19,16 +54,16 @@ export function HeroScene({ dark }: { dark: boolean }) {
         distance={14}
       />
 
-      <Float speed={1.1} rotationIntensity={0.2} floatIntensity={0.5}>
+      <Drift speed={1.1} rotationIntensity={0.2} floatIntensity={0.5}>
         <mesh position={[1.7, 1.4, -2.5]}>
           <sphereGeometry args={[0.7, 32, 32]} />
           <meshBasicMaterial color={dark ? "#fbbf24" : "#fcd34d"} />
         </mesh>
-      </Float>
+      </Drift>
 
-      <Float speed={1.3} rotationIntensity={0.3} floatIntensity={0.7}>
+      <Drift speed={1.3} rotationIntensity={0.3} floatIntensity={0.7}>
         <SolarPanel />
-      </Float>
+      </Drift>
 
       <ContactShadows
         position={[0, -1.9, 0]}

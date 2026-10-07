@@ -34,6 +34,11 @@ export function Reveal({
       });
 
       mm.add(MOTION_OK, () => {
+        if (el.getBoundingClientRect().top < innerHeight * 0.85) {
+          gsap.set(targets, { opacity: 1, y: 0 });
+          return;
+        }
+
         gsap.set(targets, { opacity: 0, y });
 
         const show = contextSafe(() => {
